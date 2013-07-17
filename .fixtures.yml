@@ -4,4 +4,4 @@ fixtures:
     powershell:  git://github.com/joshcooper/puppetlabs-powershell.git
     win_facts:  git://github.com/liamjbennett/puppet-win_facts.git
   symlinks:
-    msoffice: "#{source_dir}"
+    windows_power: "#{source_dir}"
