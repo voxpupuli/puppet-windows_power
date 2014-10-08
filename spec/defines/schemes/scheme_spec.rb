@@ -145,6 +145,9 @@ describe 'windows_power::schemes::scheme', :type => :define do
 
   describe "delete scheme" do
     let :title do "delete scheme scheme test" end
+    let :facts do
+      { :operatingsystemversion => 'Windows 2008 R2' }
+    end
     let :params do
       { :scheme_name => 'test', :scheme_guid => '381b4222-f694-41f0-9685-ff5bb260df2f', :ensure => 'absent' }
     end
