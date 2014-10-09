@@ -1,15 +1,34 @@
-# Define windows_power::schemes::scheme
+# Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
+# Copyright:: Copyright (c) 2014 Liam Bennett
+# License::   MIT
+
+# == Define: windows_power::schemes::scheme
 #
-# This definition configures a specific scheme
+# This definition configures a specific power scheme
 #
-# Parameters:
-#   [*scheme_name*]     - the name of the scheme to configure
-#   [*scheme_guid*]     - the windows guid used to uniquely identify the power scheme
-#   [*template_scheme*] - the windows guid of an existing scheme to be used as a template for the current scheme
-#   [*activation*]      - set the current scheme as the active scheme
-#   [*ensure*]          - configure if the scheme is present or absent
+# === Requirements/Dependencies
 #
-# Usage:
+# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
+# order to validate much of the the provided configuration.
+#
+# === Parameters
+#
+# [*scheme_name*]
+# The name of the scheme to configure
+#
+# [*scheme_guid*]
+# The windows guid used to uniquely identify the power scheme
+#
+# [*template_scheme*]
+# The windows guid of an existing scheme to be used as a template for the current scheme
+#
+# [*activation*]
+# Set the current scheme as the active scheme
+#
+# [*ensure*]
+# Configure if the scheme is present or absent
+#
+# === Examples
 #
 #    windows_power::schemes::scheme { 'test scheme':
 #       scheme_name     => 'test',

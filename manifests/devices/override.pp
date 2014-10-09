@@ -1,12 +1,25 @@
-# Define windows_power::devices::override
+# Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
+# Copyright:: Copyright (c) 2014 Liam Bennett
+# License::   MIT
+
+# == Define: windows_power::devices::override
 #
 # This definition manages a Power Request override for a particular Process, Service, or Driver.
 #
-# Parameters:
-#   [*type*]    - specifies one of the following caller types: PROCESS, SERVICE, DRIVER
-#   [*request*] - specifies one or more of the following Power Request Types: Display, System, Awaymode
+# === Requirements/Dependencies
 #
-# Usage:
+# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
+# order to validate much of the the provided configuration.
+#
+# === Parameters
+#
+# [*type*]
+# Specifies one of the following caller types: PROCESS, SERVICE, DRIVER
+#
+# [*request*]
+# Specifies one or more of the following Power Request Types: Display, System, Awaymode
+#
+# === Examples
 #
 #    windows_power::devices::override { 'wmplayer.exe':
 #       type    => 'PROCESS',

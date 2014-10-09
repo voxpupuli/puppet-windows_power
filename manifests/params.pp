@@ -1,3 +1,11 @@
+# Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
+# Copyright:: Copyright (c) 2014 Liam Bennett
+# License::   MIT
+
+# == Class windows_power::params
+#
+# This private class is meant to be called from `windows_power`
+# It sets variables according to platform
 #
 class windows_power::params {
 

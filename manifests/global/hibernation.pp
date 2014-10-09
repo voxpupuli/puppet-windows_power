@@ -1,11 +1,22 @@
-# Define windows_power::global::hibernation
+# Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
+# Copyright:: Copyright (c) 2014 Liam Bennett
+# License::   MIT
+
+# == Define: windows_power::global::hibernation
 #
 # This definition configures hibernation on a box
 #
-# Parameters:
-#   [*status*]  - setting configuration (on/off)
+# === Requirements/Dependencies
 #
-# Usage:
+# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
+# order to validate much of the the provided configuration.
+#
+# === Parameters
+#
+# [*status*]
+# Setting configuration (on/off)
+#
+# === Examples
 #
 #    windows_power::global::hibernation { 'enable hibernation':
 #       status => 'on'

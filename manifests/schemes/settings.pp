@@ -1,13 +1,28 @@
-# Define windows_power::schemes::settings
+# Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
+# Copyright:: Copyright (c) 2014 Liam Bennett
+# License::   MIT
+
+# == Define: windows_power::schemes::settings
 #
 # This definition configures settings for a specific scheme
 #
-# Parameters:
-#   [*scheme_name*] - the name of the scheme to configure
-#   [*setting*]     - the setting to configure
-#   [*value*]       - the value set the setting to - minutes or throttle
+# === Requirements/Dependencies
 #
-# Usage:
+# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
+# order to validate much of the the provided configuration.
+#
+# === Parameters
+#
+# [*scheme_name*]
+# The name of the scheme to configure
+#
+# [*setting*]
+# The setting to configure
+#
+# [*value*]
+# The value set the setting to - minutes or throttle
+#
+# === Examples
 #
 #    windows_power::schemes::settings { 'set monitor timeout':
 #       scheme_name => 'test',

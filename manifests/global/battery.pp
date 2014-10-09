@@ -1,12 +1,28 @@
+# Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
+# Copyright:: Copyright (c) 2014 Liam Bennett
+# License::   MIT
+
 # Define windows_power::global::battery
 #
 # This definition configured the battery alarm
 #
-# Parameters:
-#   [*setting*] - battery alarm setting to configure
-#   [*status*]  - setting configuration (on/off) or percentage (in the case of the level setting)
+# === Requirements/Dependencies
 #
-# Usage:
+# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
+# order to validate much of the the provided configuration.
+#
+# === Parameters
+#
+# [*setting*]
+# Battery alarm setting to configure
+#
+# [*status*]
+# Setting configuration (on/off) or percentage (in the case of the level setting)
+#
+# [*criticality*]
+# The level of battery criticality at which to provide an alarm. LOW or HIGH.
+#
+# === Examples
 #
 #    windows_power::global::battery { 'activate battery alarm':
 #       setting => 'activate',

@@ -1,12 +1,25 @@
-# Define windows_power::devices::wake
+# Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
+# Copyright:: Copyright (c) 2014 Liam Bennett
+# License::   MIT
+
+# == Define: windows_power::devices::wake
 #
 # This definition enables/disables the device to wake the computer from a sleep state
 #
-# Parameters:
-#   [*device*]    - specifies the device name
-#   [*ensure*]    - enable or disable the device for waking
+# === Requirements/Dependencies
 #
-# Usage:
+# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
+# order to validate much of the the provided configuration.
+#
+# === Parameters
+#
+# [*device*]
+# Specifies the device name
+#
+# [*ensure*]
+# Enable or disable the device for waking
+#
+# === Examples
 #
 #    windows_power::devices::wake { 'VMBus Enumerator (001)':
 #       device => 'VMBus Enumerator (001)',
