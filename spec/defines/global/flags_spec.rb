@@ -39,7 +39,7 @@ describe 'windows_power::global::flags', :type => :define do
       end
 
       it { should contain_exec("set globalpowerflag BatteryIcon").with(
-        'command' => 'C:\\\\Windows\\\\System32\\\\powercfg.exe /globalpowerflag /option:BatteryIcon on'
+        'command' => 'C:\Windows\System32\powercfg.exe /globalpowerflag /option:BatteryIcon on'
       ) }
     end
   end

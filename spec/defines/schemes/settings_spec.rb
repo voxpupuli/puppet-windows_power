@@ -49,7 +49,7 @@ describe 'windows_power::schemes::settings', :type => :define do
 
     it { should contain_exec('modify disk-timeout-ac setting for test').with(
       'provider' => 'powershell',
-      'command' => '& C:\\\\Windows\\\\System32\\\\powercfg.exe /change disk-timeout-ac 10'
+      'command' => '& C:\Windows\System32\powercfg.exe /change disk-timeout-ac 10'
     )}
   end
 

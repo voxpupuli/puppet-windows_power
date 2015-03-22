@@ -36,7 +36,7 @@ describe 'windows_power::devices::wake', :type => :define do
     end
 
     it { should contain_exec('device VMBus Enumerator (001) enable wake').with(
-      'command' => 'C:\\\\Windows\\\\System32\\\\powercfg.exe /deviceenablewake "VMBus Enumerator (001)"'
+      'command' => 'C:\Windows\System32\powercfg.exe /deviceenablewake "VMBus Enumerator (001)"'
     )}
   end
 
@@ -47,7 +47,7 @@ describe 'windows_power::devices::wake', :type => :define do
     end
 
     it { should contain_exec('device VMBus Enumerator (001) disable wake').with(
-      'command' => 'C:\\\\Windows\\\\System32\\\\powercfg.exe /devicedisablewake "VMBus Enumerator (001)"'
+      'command' => 'C:\Windows\System32\powercfg.exe /devicedisablewake "VMBus Enumerator (001)"'
     )}
   end
 end

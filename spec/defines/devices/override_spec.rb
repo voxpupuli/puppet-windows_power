@@ -54,7 +54,7 @@ describe 'windows_power::devices::override', :type => :define do
       end
 
       it { should contain_exec('request override for wmplayer.exe').with(
-        'command' => 'C:\\\\Windows\\\\System32\\\\powercfg.exe /requestsoverride PROCESS wmplayer.exe Display'
+        'command' => 'C:\Windows\System32\powercfg.exe /requestsoverride PROCESS wmplayer.exe Display'
       )}
     end
   end
@@ -69,7 +69,7 @@ describe 'windows_power::devices::override', :type => :define do
     end
 
     it { should contain_exec('request override for MpsSvc').with(
-      'command' => 'C:\\\\Windows\\\\System32\\\\powercfg.exe /requestsoverride SERVICE MpsSvc System'
+      'command' => 'C:\Windows\System32\powercfg.exe /requestsoverride SERVICE MpsSvc System'
     )}
   end
 end

@@ -22,7 +22,7 @@ describe 'windows_power::global::hibernation', :type => :define do
     end
 
     it { should contain_exec('update hibernate status').with(
-      'command' => 'C:\\\\Windows\\\\System32\\\\powercfg.exe -hibernate on'
+      'command' => 'C:\Windows\System32\powercfg.exe -hibernate on'
     ) }
   end
 
@@ -33,7 +33,7 @@ describe 'windows_power::global::hibernation', :type => :define do
     end
 
     it { should contain_exec('update hibernate status').with(
-      'command' => 'C:\\\\Windows\\\\System32\\\\powercfg.exe -hibernate off'
+      'command' => 'C:\Windows\System32\powercfg.exe -hibernate off'
     ) }
   end
 end

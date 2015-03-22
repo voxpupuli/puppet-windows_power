@@ -52,7 +52,7 @@ describe 'windows_power::global::battery', :type => :define do
       end
 
       it { should contain_exec("set batteryalarm sound").with(
-        'command' => 'C:\\\\Windows\\\\System32\\\\powercfg.exe /batteryalarm LOW /sound on'
+        'command' => 'C:\Windows\System32\powercfg.exe /batteryalarm LOW /sound on'
       ) }
     end
   end

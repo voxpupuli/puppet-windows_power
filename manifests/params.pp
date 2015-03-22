@@ -40,7 +40,7 @@ class windows_power::params {
 
   $globalpower_flags = ['BatteryIcon','MultiBattery','ResumePassword','WakeOnRing','VideoDim']
 
-  $powercfg = 'C:\\Windows\\System32\\powercfg.exe'
+  $powercfg = 'C:\Windows\System32\powercfg.exe'
 
   $nasty_ps = '$items = [System.Collections.ArrayList]@(powercfg -l | %{ $a = [System.Collections.ArrayList]$_.Split(\'(\'); $a.RemoveAt(0); if( (![string]::IsNullOrEmpty($a[a])) -and (!$a[0].contains(\'* Active\')) ) { $b = $a[0].Split(\')\')[0]; $b } });'
 }
