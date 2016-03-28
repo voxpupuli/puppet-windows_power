@@ -1,6 +1,6 @@
 # Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
 # Copyright:: Copyright (c) 2014 Liam Bennett
-# License::   MIT
+# License::   Apache-2.0
 
 # == Define: windows_power::global::hibernation
 #
@@ -19,19 +19,19 @@
 # === Examples
 #
 #    windows_power::global::hibernation { 'enable hibernation':
-#       status => 'on'
+#       status => 'on',
 #    }
 #
 define windows_power::global::hibernation(
-  $status
+  $status,
 ) {
 
-  include windows_power::params
+  include ::windows_power::params
 
   validate_re($status,'^(on|off)$','The status argument is not valid for hibernate')
 
   exec { 'update hibernate status':
     command  => "${windows_power::params::powercfg} -hibernate ${status}",
-    provider => windows
+    provider => windows,
   }
 }

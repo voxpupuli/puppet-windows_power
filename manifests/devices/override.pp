@@ -1,6 +1,6 @@
 # Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
 # Copyright:: Copyright (c) 2014 Liam Bennett
-# License::   MIT
+# License::   Apache-2.0
 
 # == Define: windows_power::devices::override
 #
@@ -23,15 +23,15 @@
 #
 #    windows_power::devices::override { 'wmplayer.exe':
 #       type    => 'PROCESS',
-#       request => 'Display'
+#       request => 'Display',
 #    }
 #
 define windows_power::devices::override(
   $type,
-  $request
+  $request,
 ) {
 
-  include windows_power::params
+  include ::windows_power::params
 
   validate_re($type,'^(PROCESS|SERVICE|DRIVER)$','The caller type argument does not match: PROCESS, SERVICE or DRIVER')
   validate_re($request,'^(Display|System|Awaymode)$','The request type argument does not match: Display, System or Awaymode')
@@ -43,7 +43,7 @@ define windows_power::devices::override(
     default: {
       exec { "request override for ${name}":
         command  => "${windows_power::params::powercfg} /requestsoverride ${type} ${name} ${request}",
-        provider => windows
+        provider => windows,
       }
     }
   }

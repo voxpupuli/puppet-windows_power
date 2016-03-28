@@ -1,12 +1,12 @@
 {
   "name":         "puppet-windows_power",
   "version":      "1.0.0",
-  "author":       "puppet-community",
-  "license":      "Apache 2.0",
+  "author":       "puppet",
+  "license":      "Apache-2.0",
   "summary":      "Module to manage the power settings on Windows",
-  "source":       "https://github.com/puppet-community/puppet-windows_power",
-  "project_page": "https://github.com/puppet-community/puppet-windows_power",
-  "issues_url":   "https://github.com/puppet-community/puppet-windows_power/issues",
+  "source":       "https://github.com/voxpupuli/puppet-windows_power",
+  "project_page": "https://github.com/voxpupuli/puppet-windows_power",
+  "issues_url":   "https://github.com/voxpupuli/puppet-windows_power/issues",
   "operatingsystem_support": [
     {
       "operatingsystem": "windows",

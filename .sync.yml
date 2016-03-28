@@ -3,15 +3,21 @@ spec/spec_helper_acceptance.rb:
   windows: true
   dependencies:
     - puppetlabs-stdlib
-spec/acceptance/nodesets/centos-59-x64.yml:
+spec/acceptance/nodesets/centos-511-x64.yml:
   unmanaged: true
-spec/acceptance/nodesets/centos-64-x64-pe.yml:
+spec/acceptance/nodesets/centos-66-x64-pe.yml:
   unmanaged: true
-spec/acceptance/nodesets/centos-65-x64.yml:
+spec/acceptance/nodesets/centos-66-x64.yml:
   unmanaged: true
-spec/acceptance/nodesets/ubuntu-server-10044-x64.yml:
+spec/acceptance/nodesets/centos-72-x64.yml:
   unmanaged: true
-spec/acceptance/nodesets/ubuntu-server-12042-x64.yml:
+spec/acceptance/nodesets/ubuntu-server-1204-x64.yml:
   unmanaged: true
 spec/acceptance/nodesets/ubuntu-server-1404-x64.yml:
   unmanaged: true
+spec/acceptance/nodesets/debian-78-x64.yml:
+  unmanaged: true
+spec/acceptance/nodesets/debian-82-x64.yml:
+  unmanaged: true
+.travis.yml:
+  secure: "RlP9zTWoPNGrw4k7TSIGspRb4AfP9TeH6iIJIwSZwcafKOhHO4jCJswQcJE8lKUEE5g871GRA7dUtpYzT6elsFghEEbl6H3y9DFJ7QdMW4w5I9RdfG8aoYhkYGD7ks3CxnF430GUpqJ9WuC9dF8dOh+yXTvVhbnuyZEzxAZmNBI="
