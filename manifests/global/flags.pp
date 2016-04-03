@@ -1,6 +1,6 @@
 # Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
 # Copyright:: Copyright (c) 2014 Liam Bennett
-# License::   MIT
+# License::   Apache-2.0
 
 # == Define: windows_power::global::flags
 #
@@ -23,15 +23,15 @@
 #
 #    windows_power::global::flags { 'show battery icon':
 #       setting => 'BatteryIcon',
-#       status => 'on'
+#       status => 'on',
 #    }
 #
 define windows_power::global::flags(
   $setting,
-  $status
+  $status,
 ) {
 
-  include windows_power::params
+  include ::windows_power::params
 
   validate_re($setting,$windows_power::params::globalpower_flags,'The setting argument does not match a valid globalpower flag')
   validate_re($status,'^(on|off)$',"The status argument is not valid for ${setting}")
@@ -40,7 +40,7 @@ define windows_power::global::flags(
     'Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2': {
       exec { "set globalpowerflag ${setting}":
         command  => "${windows_power::params::powercfg} /globalpowerflag /option:${setting} ${status}",
-        provider => windows
+        provider => windows,
       }
     }
     default: {

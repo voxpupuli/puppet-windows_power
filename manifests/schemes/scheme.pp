@@ -1,6 +1,6 @@
 # Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
 # Copyright:: Copyright (c) 2014 Liam Bennett
-# License::   MIT
+# License::   Apache-2.0
 
 # == Define: windows_power::schemes::scheme
 #
@@ -35,18 +35,18 @@
 #       scheme_guid     => '381b4222-f694-41f0-9685-ff5bbxx65ddx',
 #       template_scheme => '381b4222-f694-41f0-9685-ff5bb260df2e',
 #       activation      => 'active',
-#       ensure          => 'present'
+#       ensure          => 'present',
 #    }
 #
 define windows_power::schemes::scheme(
   $scheme_name,
   $scheme_guid,
   $template_scheme = '',
-  $activation = '',
-  $ensure = 'present'
+  $activation      = '',
+  $ensure          = 'present',
 ) {
 
-  include windows_power::params
+  include ::windows_power::params
 
   validate_string($scheme_name)
   validate_re($scheme_guid,'^[A-Za-z0-9]{8}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{12}$','The scheme guid provided is not formatted correctly')
@@ -73,7 +73,7 @@ define windows_power::schemes::scheme(
           command   => "& ${windows_power::params::powercfg} /create ${scheme_name}",
           provider  => powershell,
           logoutput => true,
-          onlyif    => $scheme_check
+          onlyif    => $scheme_check,
         }
       }
       default: {
@@ -81,7 +81,7 @@ define windows_power::schemes::scheme(
           command   => "& ${windows_power::params::powercfg} -duplicatescheme ${template_scheme} ${scheme_guid}",
           provider  => powershell,
           logoutput => true,
-          onlyif    => $scheme_check
+          onlyif    => $scheme_check,
         }
 
         exec { "rename scheme to ${scheme_name}":
@@ -89,7 +89,7 @@ define windows_power::schemes::scheme(
           provider  => powershell,
           logoutput => true,
           onlyif    => $scheme_check,
-          require   => Exec["rename scheme to ${scheme_name}"]
+          require   => Exec["rename scheme to ${scheme_name}"],
         }
       }
     }

@@ -1,6 +1,6 @@
 # Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
 # Copyright:: Copyright (c) 2014 Liam Bennett
-# License::   MIT
+# License::   Apache-2.0
 
 # == Define: windows_power::devices::wake
 #
@@ -23,21 +23,21 @@
 #
 #    windows_power::devices::wake { 'VMBus Enumerator (001)':
 #       device => 'VMBus Enumerator (001)',
-#       ensure => 'enable'
+#       ensure => 'enable',
 #    }
 #
 define windows_power::devices::wake(
   $device,
-  $ensure = 'enable'
+  $ensure = 'enable',
 ) {
 
-  include windows_power::params
+  include ::windows_power::params
 
   validate_string($device)
   validate_re($ensure,'^(enable|disable)$','The ensure argument does not match: enable or disable')
 
   exec { "device ${device} ${ensure} wake":
     command  => "${windows_power::params::powercfg} /device${ensure}wake \"${device}\"",
-    provider => windows
+    provider => windows,
   }
 }

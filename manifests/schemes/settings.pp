@@ -1,6 +1,6 @@
 # Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
 # Copyright:: Copyright (c) 2014 Liam Bennett
-# License::   MIT
+# License::   Apache-2.0
 
 # == Define: windows_power::schemes::settings
 #
@@ -26,17 +26,17 @@
 #
 #    windows_power::schemes::settings { 'set monitor timeout':
 #       scheme_name => 'test',
-#       setting => 'monitor-timeout-ac',
-#       value => '10'
+#       setting     => 'monitor-timeout-ac',
+#       value       => '10',
 #    }
 #
 define windows_power::schemes::settings(
   $scheme_name,
   $setting,
-  $value
+  $value,
 ) {
 
-  include windows_power::params
+  include ::windows_power::params
 
   validate_string($scheme_name)
 

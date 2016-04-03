@@ -1,6 +1,6 @@
 # puppet-windows_power
 
-####Table of Contents
+#### Table of Contents
 
 1. [Overview](#overview)
 2. [Module Description - What is the windows_power module?](#module-description)
@@ -13,23 +13,22 @@
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
 
-##Overview
+## Overview
 
 Puppet module for managing windows power settings
 
-[![Build Status](https://secure.travis-ci.org/liamjbennett/puppet-windows_power.png)](http://travis-ci.org/liamjbennett/puppet-windows_power)
-
-##Module Description
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-windows_power.svg?branch=master)](https://travis-ci.org/voxpupuli/puppet-windows_power)
+## Module Description
 
 The purpose of this module is to manage each of the windows power schemes and the various global power settings
 
-##Setup
+## Setup
 
-###What windows_power affects
+### What windows_power affects
 
 * Creates new power schemes (which will alter registry settings)
 
-###Beginning with windows_power
+### Beginning with windows_power
 
   Create new power scheme:
 
@@ -39,100 +38,120 @@ The purpose of this module is to manage each of the windows power schemes and th
        scheme_guid     => '381b4222-f694-41f0-9685-ff5bbxx65ddx',
        template_scheme => '381b4222-f694-41f0-9685-ff5bb260df2e',
        activation      => 'active',
-       ensure          => 'present'
+       ensure          => 'present',
     }
 ```
 
-##Usage
+## Usage
 
-###Classes and Defined Types:
+### Classes and Defined Types:
 
-####Defined Type:`windows_power::schemes::scheme`
+#### Defined Type: `windows_power::schemes::scheme`
 
 **Parameters within `windows_power::schemes::scheme`:**
 
-#####`scheme_name`
+##### `scheme_name`
+
 The name of the scheme to configure
 
-#####`scheme_guid`
+##### `scheme_guid`
+
 The windows guid used to uniquely identify the power scheme
 
-#####`template_scheme`
+##### `template_scheme`
+
 The windows guid of an existing scheme to be used as a template for the current scheme
 
-#####`activation`
+##### `activation`
+
 Set the current scheme as the active scheme
 
-#####`ensure`
-Configure if the scheme is present or absent
+##### `ensure`
 
-####Defined Type:`windows_power::schemes::settings`
+Configure if the scheme is present or absent
+The initial version
+
+#### Defined Type: `windows_power::schemes::settings`
 
 **Parameters within `windows_power::schemes::settings`:**
 
-#####`scheme_name`
+##### `scheme_name`
+
 The name of the scheme to configure
 
-#####`setting`
+##### `setting`
+
 The setting to configure
 
-#####`value`
+##### `value`
+
 The value set the setting to - minutes or throttle
 
-####Defined Type:`windows_power::global::battery`
+#### Defined Type: `windows_power::global::battery`
 
 **Parameters within `windows_power::global::battery`:**
 
-#####`setting`
-Battery alarm setting to configure
+##### `setting`
 
-#####`status`
+Battery alarm setting to The initial versionconfigure
+
+##### `status`
+
 Setting configuration (on/off) or percentage (in the case of the level setting)
 
-#####`criticality`
+##### `criticality`
+
 The level of battery criticality at which to provide an alarm. LOW or HIGH.
 
-####Defined Type:`windows_power::global::flags`
+#### Defined Type: `windows_power::global::flags`
 
 **Parameters within `windows_power::global::flags`:**
 
-#####`setting`
+##### `setting`
+
 The global power flag to configure
 
-#####`status`
+##### `status`
+
 Setting configuration (on/off)
 
-####Defined Type:`windows_power::global::hiberation`
+#### Defined Type: `windows_power::global::hiberation`
 
 **Parameters within `windows_power::global::hibernation`:**
 
-#####`status`
+##### `status`
+
 Setting configuration (on/off)
 
-####Defined Type:`windows_power::devices::override`
+#### Defined Type: `windows_power::devices::override`
 
 **Parameters within `windows_power::devices::override`:**
 
-#####`type`
+##### `type`
+
 Specifies one of the following caller types: PROCESS, SERVICE, DRIVER
 
-#####`request`
+##### `request`
+
 Specifies one or more of the following Power Request Types: Display, System, Awaymode
 
-####Defined Type:`windows_power::devices::wake`
+#### Defined Type: `windows_power::devices::wake`
 
 **Parameters within `windows_power::devices::wake`:**
 
-#####`device`
+##### `device`
+
 Specifies the device name
 
-#####`ensure`
+##### `ensure`
+
 Enable or disable the device for waking
 
-##Reference
+## Reference
 
-###Defined Types:
-####Public Defined Types:
+### Defined Types:
+
+#### Public Defined Types:
 
 * [`windows_power::schemes::scheme`](#define-schemes-scheme): Guides the management of windows power schemes
 * [`windows_power::schemes::settings`](#define-schemes-settings): Configures individual settings with a given scheme.
@@ -142,7 +161,7 @@ Enable or disable the device for waking
 * [`windows_power::devices::override`](#define-devices-override): Configure power overrides for certain devices
 * [`windows_power::devices::wake`](#define-devices-wake): Configure the device wake settings
 
-##Limitations
+## Limitations
 
 This module is tested on the following platforms:
 
@@ -150,8 +169,8 @@ This module is tested on the following platforms:
 
 It is tested with the OSS version of Puppet only.
 
-##Development
+## Development
 
-###Contributing
+### Contributing
 
 Please read CONTRIBUTING.md for full details on contributing to this project.

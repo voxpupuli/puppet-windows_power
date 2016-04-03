@@ -1,6 +1,6 @@
 # Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
 # Copyright:: Copyright (c) 2014 Liam Bennett
-# License::   MIT
+# License::   Apache-2.0
 
 # == Class: windows_power
 #
@@ -17,5 +17,5 @@
 #
 #
 class windows_power {
-  include windows_power::params
+  include ::windows_power::params
 }
