@@ -9,7 +9,7 @@ describe 'windows_power::schemes::settings', type: :define do
 
     it do
       expect do
-        should contain_exec('modify xxx setting for test')
+        is_expected.to contain_exec('modify xxx setting for test')
       end.to raise_error(Puppet::Error)
     end
   end
@@ -22,7 +22,7 @@ describe 'windows_power::schemes::settings', type: :define do
 
     it do
       expect do
-        should contain_exec('modify xxx setting for test')
+        is_expected.to contain_exec('modify xxx setting for test')
       end.to raise_error(Puppet::Error, %r{The setting argument does not match a valid scheme setting})
     end
   end
@@ -35,7 +35,7 @@ describe 'windows_power::schemes::settings', type: :define do
 
     it do
       expect do
-        should contain_exec('modify disk-timeout-ac setting for test')
+        is_expected.to contain_exec('modify disk-timeout-ac setting for test')
       end.to raise_error(Puppet::Error, %r{The value provided is not appropriate for the disk-timeout-ac setting})
     end
   end
@@ -47,7 +47,7 @@ describe 'windows_power::schemes::settings', type: :define do
     end
 
     it do
-      should contain_exec('modify disk-timeout-ac setting for test').with(
+      is_expected.to contain_exec('modify disk-timeout-ac setting for test').with(
         'provider' => 'powershell',
         'command' => '& C:\Windows\System32\powercfg.exe /change disk-timeout-ac 10'
       )

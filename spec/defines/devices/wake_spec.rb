@@ -9,7 +9,7 @@ describe 'windows_power::devices::wake', type: :define do
 
     it do
       expect do
-        should contain_exec('device network-device enable wake')
+        is_expected.to contain_exec('device network-device enable wake')
       end.to raise_error(Puppet::Error)
     end
   end
@@ -22,7 +22,7 @@ describe 'windows_power::devices::wake', type: :define do
 
     it do
       expect do
-        should contain_exec('device network-device enable wake')
+        is_expected.to contain_exec('device network-device enable wake')
       end.to raise_error(Puppet::Error, %r{The ensure argument does not match: enable or disable})
     end
   end
@@ -34,7 +34,7 @@ describe 'windows_power::devices::wake', type: :define do
     end
 
     it do
-      should contain_exec('device VMBus Enumerator (001) enable wake').with(
+      is_expected.to contain_exec('device VMBus Enumerator (001) enable wake').with(
         'command' => 'C:\Windows\System32\powercfg.exe /deviceenablewake "VMBus Enumerator (001)"'
       )
     end
@@ -47,7 +47,7 @@ describe 'windows_power::devices::wake', type: :define do
     end
 
     it do
-      should contain_exec('device VMBus Enumerator (001) disable wake').with(
+      is_expected.to contain_exec('device VMBus Enumerator (001) disable wake').with(
         'command' => 'C:\Windows\System32\powercfg.exe /devicedisablewake "VMBus Enumerator (001)"'
       )
     end

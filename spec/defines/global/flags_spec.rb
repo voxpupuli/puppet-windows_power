@@ -9,7 +9,7 @@ describe 'windows_power::global::flags', type: :define do
 
     it do
       expect do
-        should contain_exec('set globalpowerflag xxx')
+        is_expected.to contain_exec('set globalpowerflag xxx')
       end.to raise_error(Puppet::Error, %r{The setting argument does not match a valid globalpower flag})
     end
   end
@@ -22,7 +22,7 @@ describe 'windows_power::global::flags', type: :define do
 
     it do
       expect do
-        should contain_exec('set globalpowerflag BatteryIcon')
+        is_expected.to contain_exec('set globalpowerflag BatteryIcon')
       end.to raise_error(Puppet::Error, %r{The status argument is not valid for BatteryIcon})
     end
   end
@@ -38,7 +38,7 @@ describe 'windows_power::global::flags', type: :define do
       end
 
       it do
-        should contain_exec('set globalpowerflag BatteryIcon').with(
+        is_expected.to contain_exec('set globalpowerflag BatteryIcon').with(
           'command' => 'C:\Windows\System32\powercfg.exe /globalpowerflag /option:BatteryIcon on'
         )
       end
@@ -55,7 +55,7 @@ describe 'windows_power::global::flags', type: :define do
         { setting: 'BatteryIcon', status: 'on' }
       end
 
-      it { should_not contain_exec('set globalpowerflag BatteryIcon') }
+      it { is_expected.not_to contain_exec('set globalpowerflag BatteryIcon') }
     end
   end
 end

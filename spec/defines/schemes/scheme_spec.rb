@@ -9,7 +9,7 @@ describe 'windows_power::schemes::scheme', type: :define do
 
     it do
       expect do
-        should contain_exec('create power scheme test')
+        is_expected.to contain_exec('create power scheme test')
       end.to raise_error(Puppet::Error)
     end
   end
@@ -22,7 +22,7 @@ describe 'windows_power::schemes::scheme', type: :define do
 
     it do
       expect do
-        should contain_exec('create power scheme test')
+        is_expected.to contain_exec('create power scheme test')
       end.to raise_error(Puppet::Error, %r{The scheme guid provided is not formatted correctly})
     end
   end
@@ -35,7 +35,7 @@ describe 'windows_power::schemes::scheme', type: :define do
 
     it do
       expect do
-        should contain_exec('create power scheme test')
+        is_expected.to contain_exec('create power scheme test')
       end.to raise_error(Puppet::Error, %r{The ensure argument is not set to present or absent})
     end
   end
@@ -52,7 +52,7 @@ describe 'windows_power::schemes::scheme', type: :define do
 
       it do
         expect do
-          should contain_exec('create power scheme test')
+          is_expected.to contain_exec('create power scheme test')
         end.to raise_error(Puppet::Error)
       end
     end
@@ -68,7 +68,7 @@ describe 'windows_power::schemes::scheme', type: :define do
 
       it do
         expect do
-          should contain_exec('create power scheme test')
+          is_expected.to contain_exec('create power scheme test')
         end.to raise_error(Puppet::Error, %r{The activation argument is not set to active or inactive})
       end
     end
@@ -85,7 +85,7 @@ describe 'windows_power::schemes::scheme', type: :define do
       end
 
       it do
-        should contain_exec('create power scheme test').with(
+        is_expected.to contain_exec('create power scheme test').with(
           'provider' => 'powershell',
           'command' => '& C:\Windows\System32\powercfg.exe /create test'
         )
@@ -105,21 +105,21 @@ describe 'windows_power::schemes::scheme', type: :define do
       end
 
       it do
-        should contain_exec('create power scheme test').with(
+        is_expected.to contain_exec('create power scheme test').with(
           'provider' => 'powershell',
           'command' => '& C:\Windows\System32\powercfg.exe -duplicatescheme 381b4222-f694-41f0-9685-ff5bb260df2e 381b4222-f694-41f0-9685-ff5bb260df2f'
         )
       end
 
       it do
-        should contain_exec('rename scheme to test').with(
+        is_expected.to contain_exec('rename scheme to test').with(
           'provider' => 'powershell',
           'command' => '& C:\Windows\System32\powercfg.exe -changename 381b4222-f694-41f0-9685-ff5bb260df2f test'
         )
       end
 
       it do
-        should contain_exec('set test scheme as active').with(
+        is_expected.to contain_exec('set test scheme as active').with(
           'provider' => 'powershell',
           'command' => '& C:\Windows\System32\powercfg.exe -setactive 381b4222-f694-41f0-9685-ff5bb260df2f'
         )
@@ -137,20 +137,20 @@ describe 'windows_power::schemes::scheme', type: :define do
       end
 
       it do
-        should contain_exec('create power scheme test').with(
+        is_expected.to contain_exec('create power scheme test').with(
           'provider' => 'powershell',
           'command' => '& C:\Windows\System32\powercfg.exe -duplicatescheme 381b4222-f694-41f0-9685-ff5bb260df2e 381b4222-f694-41f0-9685-ff5bb260df2f'
         )
       end
 
       it do
-        should contain_exec('rename scheme to test').with(
+        is_expected.to contain_exec('rename scheme to test').with(
           'provider' => 'powershell',
           'command' => '& C:\Windows\System32\powercfg.exe -changename 381b4222-f694-41f0-9685-ff5bb260df2f test'
         )
       end
 
-      it { should_not contain_exec('set test scheme as active') }
+      it { is_expected.not_to contain_exec('set test scheme as active') }
     end
   end
 
@@ -164,7 +164,7 @@ describe 'windows_power::schemes::scheme', type: :define do
     end
 
     it do
-      should contain_exec('delete power scheme test').with(
+      is_expected.to contain_exec('delete power scheme test').with(
         'provider' => 'powershell',
         'command' => '& C:\Windows\System32\powercfg.exe -delete 381b4222-f694-41f0-9685-ff5bb260df2f'
       )
