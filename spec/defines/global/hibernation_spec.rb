@@ -9,7 +9,7 @@ describe 'windows_power::global::hibernation', type: :define do
 
     it do
       expect do
-        should contain_exec('update hibernate status')
+        is_expected.to contain_exec('update hibernate status')
       end.to raise_error(Puppet::Error, %r{The status argument is not valid for hibernate})
     end
   end
@@ -21,7 +21,7 @@ describe 'windows_power::global::hibernation', type: :define do
     end
 
     it do
-      should contain_exec('update hibernate status').with(
+      is_expected.to contain_exec('update hibernate status').with(
         'command' => 'C:\Windows\System32\powercfg.exe -hibernate on'
       )
     end
@@ -34,7 +34,7 @@ describe 'windows_power::global::hibernation', type: :define do
     end
 
     it do
-      should contain_exec('update hibernate status').with(
+      is_expected.to contain_exec('update hibernate status').with(
         'command' => 'C:\Windows\System32\powercfg.exe -hibernate off'
       )
     end

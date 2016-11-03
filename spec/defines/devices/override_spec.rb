@@ -9,7 +9,7 @@ describe 'windows_power::devices::override', type: :define do
 
     it do
       expect do
-        should contain_exec('request override for wmplayer.exe')
+        is_expected.to contain_exec('request override for wmplayer.exe')
       end.to raise_error(Puppet::Error, %r{The caller type argument does not match: PROCESS, SERVICE or DRIVER})
     end
   end
@@ -22,7 +22,7 @@ describe 'windows_power::devices::override', type: :define do
 
     it do
       expect do
-        should contain_exec('request override for wmplayer.exe')
+        is_expected.to contain_exec('request override for wmplayer.exe')
       end.to raise_error(Puppet::Error, %r{The request type argument does not match: Display, System or Awaymode})
     end
   end
@@ -37,7 +37,7 @@ describe 'windows_power::devices::override', type: :define do
         { type: 'PROCESS', request: 'Display' }
       end
 
-      it { should_not contain_exec('request override for wmplayer.exe') }
+      it { is_expected.not_to contain_exec('request override for wmplayer.exe') }
     end
   end
 
@@ -52,7 +52,7 @@ describe 'windows_power::devices::override', type: :define do
       end
 
       it do
-        should contain_exec('request override for wmplayer.exe').with(
+        is_expected.to contain_exec('request override for wmplayer.exe').with(
           'command' => 'C:\Windows\System32\powercfg.exe /requestsoverride PROCESS wmplayer.exe Display'
         )
       end
@@ -69,7 +69,7 @@ describe 'windows_power::devices::override', type: :define do
     end
 
     it do
-      should contain_exec('request override for MpsSvc').with(
+      is_expected.to contain_exec('request override for MpsSvc').with(
         'command' => 'C:\Windows\System32\powercfg.exe /requestsoverride SERVICE MpsSvc System'
       )
     end

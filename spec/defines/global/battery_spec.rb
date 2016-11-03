@@ -9,7 +9,7 @@ describe 'windows_power::global::battery', type: :define do
 
     it do
       expect do
-        should contain_exec('set batteryalarm xxx')
+        is_expected.to contain_exec('set batteryalarm xxx')
       end.to raise_error(Puppet::Error, %r{The setting argument does not match a valid batteryalarm setting})
     end
   end
@@ -22,7 +22,7 @@ describe 'windows_power::global::battery', type: :define do
 
     it do
       expect do
-        should contain_exec('set batteryalarm sound')
+        is_expected.to contain_exec('set batteryalarm sound')
       end.to raise_error(Puppet::Error, %r{The status argument is not valid for sound})
     end
   end
@@ -35,7 +35,7 @@ describe 'windows_power::global::battery', type: :define do
 
     it do
       expect do
-        should contain_exec('set batteryalarm sound')
+        is_expected.to contain_exec('set batteryalarm sound')
       end.to raise_error(Puppet::Error, %r{The status argument does not match: LOW or HIGH})
     end
   end
@@ -51,7 +51,7 @@ describe 'windows_power::global::battery', type: :define do
       end
 
       it do
-        should contain_exec('set batteryalarm sound').with(
+        is_expected.to contain_exec('set batteryalarm sound').with(
           'command' => 'C:\Windows\System32\powercfg.exe /batteryalarm LOW /sound on'
         )
       end
@@ -68,7 +68,7 @@ describe 'windows_power::global::battery', type: :define do
         { setting: 'sound', status: 'on' }
       end
 
-      it { should_not contain_exec('set batteryalarm sound') }
+      it { is_expected.not_to contain_exec('set batteryalarm sound') }
     end
   end
 end
