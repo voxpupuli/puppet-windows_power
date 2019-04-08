@@ -17,5 +17,5 @@
 #
 #
 class windows_power {
-  include ::windows_power::params
+  include windows_power::params
 }

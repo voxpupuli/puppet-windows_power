@@ -46,7 +46,7 @@ define windows_power::schemes::scheme(
   $ensure          = 'present',
 ) {
 
-  include ::windows_power::params
+  include windows_power::params
 
   validate_string($scheme_name)
   validate_re($scheme_guid,'^[A-Za-z0-9]{8}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{12}$','The scheme guid provided is not formatted correctly')

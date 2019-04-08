@@ -31,7 +31,7 @@ define windows_power::global::flags(
   $status,
 ) {
 
-  include ::windows_power::params
+  include windows_power::params
 
   validate_re($setting,$windows_power::params::globalpower_flags,'The setting argument does not match a valid globalpower flag')
   validate_re($status,'^(on|off)$',"The status argument is not valid for ${setting}")

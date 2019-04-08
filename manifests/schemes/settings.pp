@@ -36,7 +36,7 @@ define windows_power::schemes::settings(
   $value,
 ) {
 
-  include ::windows_power::params
+  include windows_power::params
 
   validate_string($scheme_name)
 
