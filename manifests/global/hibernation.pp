@@ -26,7 +26,7 @@ define windows_power::global::hibernation(
   $status,
 ) {
 
-  include ::windows_power::params
+  include windows_power::params
 
   validate_re($status,'^(on|off)$','The status argument is not valid for hibernate')
 

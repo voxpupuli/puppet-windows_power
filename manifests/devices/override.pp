@@ -31,7 +31,7 @@ define windows_power::devices::override(
   $request,
 ) {
 
-  include ::windows_power::params
+  include windows_power::params
 
   validate_re($type,'^(PROCESS|SERVICE|DRIVER)$','The caller type argument does not match: PROCESS, SERVICE or DRIVER')
   validate_re($request,'^(Display|System|Awaymode)$','The request type argument does not match: Display, System or Awaymode')

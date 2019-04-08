@@ -31,7 +31,7 @@ define windows_power::devices::wake(
   $ensure = 'enable',
 ) {
 
-  include ::windows_power::params
+  include windows_power::params
 
   validate_string($device)
   validate_re($ensure,'^(enable|disable)$','The ensure argument does not match: enable or disable')

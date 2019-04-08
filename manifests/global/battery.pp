@@ -35,7 +35,7 @@ define windows_power::global::battery(
   $criticality = 'LOW',
 ) {
 
-  include ::windows_power::params
+  include windows_power::params
 
   validate_re($setting,keys($windows_power::params::batteryalarm_settings),'The setting argument does not match a valid batteryalarm setting')
   validate_re($status,$windows_power::params::batteryalarm_settings[$setting],"The status argument is not valid for ${setting}")
