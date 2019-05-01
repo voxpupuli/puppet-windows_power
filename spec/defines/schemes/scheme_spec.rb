@@ -90,6 +90,7 @@ describe 'windows_power::schemes::scheme', type: :define do
           'command' => '& C:\Windows\System32\powercfg.exe /create test'
         )
       end
+      it { is_expected.to compile }
     end
   end
 
@@ -124,6 +125,7 @@ describe 'windows_power::schemes::scheme', type: :define do
           'command' => '& C:\Windows\System32\powercfg.exe -setactive 381b4222-f694-41f0-9685-ff5bb260df2f'
         )
       end
+      it { is_expected.to compile }
     end
 
     describe "create and inactive scheme on #{os}" do
@@ -151,6 +153,7 @@ describe 'windows_power::schemes::scheme', type: :define do
       end
 
       it { is_expected.not_to contain_exec('set test scheme as active') }
+      it { is_expected.to compile }
     end
   end
 
@@ -169,5 +172,6 @@ describe 'windows_power::schemes::scheme', type: :define do
         'command' => '& C:\Windows\System32\powercfg.exe -delete 381b4222-f694-41f0-9685-ff5bb260df2f'
       )
     end
+    it { is_expected.to compile }
   end
 end
