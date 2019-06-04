@@ -42,5 +42,5 @@ class windows_power::params {
 
   $powercfg = 'C:\Windows\System32\powercfg.exe'
 
-  $nasty_ps = '$items = [System.Collections.ArrayList]@(powercfg -l | %{ $a = [System.Collections.ArrayList]$_.Split(\'(\'); $a.RemoveAt(0); if( (![string]::IsNullOrEmpty($a[a])) -and (!$a[0].contains(\'* Active\')) ) { $b = $a[0].Split(\')\')[0]; $b } });'
+  $nasty_ps = '$items = [System.Collections.ArrayList]@(powercfg -l | %{ $a = [System.Collections.ArrayList]$_.Split(\'(\'); $a.RemoveAt(0); if( (![string]::IsNullOrEmpty($a[0])) -and (!$a[0].contains(\'* Active\')) ) { $b = $a[0].Split(\')\')[0]; $b } });'
 }

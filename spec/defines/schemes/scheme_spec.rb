@@ -87,7 +87,7 @@ describe 'windows_power::schemes::scheme', type: :define do
       it do
         is_expected.to contain_exec('create power scheme test').with(
           'provider' => 'powershell',
-          'command' => '& C:\Windows\System32\powercfg.exe /create test'
+          'command' => '& C:\Windows\System32\powercfg.exe /create \'test\''
         )
       end
       it { is_expected.to compile }
@@ -115,7 +115,7 @@ describe 'windows_power::schemes::scheme', type: :define do
       it do
         is_expected.to contain_exec('rename scheme to test').with(
           'provider' => 'powershell',
-          'command' => '& C:\Windows\System32\powercfg.exe -changename 381b4222-f694-41f0-9685-ff5bb260df2f test'
+          'command' => '& C:\Windows\System32\powercfg.exe -changename 381b4222-f694-41f0-9685-ff5bb260df2f \'test\''
         )
       end
 
@@ -148,7 +148,7 @@ describe 'windows_power::schemes::scheme', type: :define do
       it do
         is_expected.to contain_exec('rename scheme to test').with(
           'provider' => 'powershell',
-          'command' => '& C:\Windows\System32\powercfg.exe -changename 381b4222-f694-41f0-9685-ff5bb260df2f test'
+          'command' => '& C:\Windows\System32\powercfg.exe -changename 381b4222-f694-41f0-9685-ff5bb260df2f \'test\''
         )
       end
 
