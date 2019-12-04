@@ -30,26 +30,27 @@ The purpose of this module is to manage each of the windows power schemes and th
 
 ### Beginning with windows_power
 
-  Create new power scheme:
+Create new power scheme:
 
 ```puppet
-    windows_power::schemes::scheme { 'test scheme':
-        scheme_name     => 'test',
-        scheme_guid     => '381b4222-f694-41f0-9685-ff5bbxx65ddx',
-        template_scheme => '381b4222-f694-41f0-9685-ff5bb260df2e',
-        activation      => 'active',
-        ensure          => 'present',
-    }
+windows_power::schemes::scheme { 'test scheme':
+  scheme_name     => 'test',
+  scheme_guid     => '381b4222-f694-41f0-9685-ff5bbxx65ddx',
+  template_scheme => '381b4222-f694-41f0-9685-ff5bb260df2e',
+  activation      => 'active',
+  ensure          => 'present',
+}
 ```
 
-  Set monitor timeout in 'Balanced' power scheme to 10 minutes:
+Set monitor timeout in 'Balanced' power scheme to 10 minutes:
 
 ```puppet
-    windows_power::schemes::settings { 'set monitor timeout':
-        scheme_name => 'SCHEME_BALANCED',
-        setting     => 'monitor-timeout-ac',
-        value       => '10',
-    }
+windows_power::schemes::settings { 'set monitor timeout':
+  scheme_name => 'SCHEME_BALANCED',
+  setting     => 'monitor-timeout-ac',
+  value       => '10',
+}
+
 ```
 
 ## Usage
