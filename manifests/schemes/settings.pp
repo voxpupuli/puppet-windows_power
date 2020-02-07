@@ -49,6 +49,6 @@ define windows_power::schemes::settings(
     command   => "& ${windows_power::params::powercfg} /change ${setting} ${value}",
     provider  => powershell,
     logoutput => true,
-    unless    => "${windows_power::params::nasty_ps} \$items.contains(${scheme_name})",
+    unless    => "${windows_power::params::nasty_ps} \$items.contains(\"${scheme_name}\")",
   }
 }
