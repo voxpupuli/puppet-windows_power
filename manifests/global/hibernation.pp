@@ -31,8 +31,8 @@ define windows_power::global::hibernation(
   validate_re($status,'^(on|off)$','The status argument is not valid for hibernate')
 
   exec { 'update hibernate status':
-    command  => "${windows_power::params::powercfg} -hibernate ${status}",
-    provider => windows,
+    command  => "powercfg -hibernate ${status}",
     unless => 'if($(Get-ItemPropertyValue HKLM:\SYSTEM\CurrentControlSet\Control\Power -name HibernateEnabled) -eq 0) {exit 0} else {exit 1}',
+    provider => powershell,
   }
 }
