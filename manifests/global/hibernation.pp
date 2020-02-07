@@ -32,7 +32,7 @@ define windows_power::global::hibernation(
 
   exec { 'update hibernate status':
     command  => "powercfg -hibernate ${status}",
-    unless => 'if($(Get-ItemPropertyValue HKLM:\SYSTEM\CurrentControlSet\Control\Power -name HibernateEnabled) -eq 0) {exit 0} else {exit 1}',
+    unless   => 'if($(Get-ItemPropertyValue HKLM:\SYSTEM\CurrentControlSet\Control\Power -name HibernateEnabled) -eq 0) {exit 0} else {exit 1}',
     provider => powershell,
   }
 }
