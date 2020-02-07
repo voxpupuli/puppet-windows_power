@@ -33,5 +33,6 @@ define windows_power::global::hibernation(
   exec { 'update hibernate status':
     command  => "${windows_power::params::powercfg} -hibernate ${status}",
     provider => windows,
+    unless => 'if($(Get-ItemPropertyValue HKLM:\SYSTEM\CurrentControlSet\Control\Power -name HibernateEnabled) -eq 0) {exit 0} else {exit 1}',
   }
 }
