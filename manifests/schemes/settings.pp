@@ -30,12 +30,11 @@
 #       value       => '10',
 #    }
 #
-define windows_power::schemes::settings(
+define windows_power::schemes::settings (
   $scheme_name,
   $setting,
   $value,
 ) {
-
   include windows_power::params
 
   validate_string($scheme_name)
