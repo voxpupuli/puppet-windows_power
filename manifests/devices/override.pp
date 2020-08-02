@@ -26,11 +26,10 @@
 #       request => 'Display',
 #    }
 #
-define windows_power::devices::override(
+define windows_power::devices::override (
   $type,
   $request,
 ) {
-
   include windows_power::params
 
   validate_re($type,'^(PROCESS|SERVICE|DRIVER)$','The caller type argument does not match: PROCESS, SERVICE or DRIVER')

@@ -29,12 +29,11 @@
 #       status  => 'on',
 #    }
 #
-define windows_power::global::battery(
+define windows_power::global::battery (
   $setting,
   $status,
   $criticality = 'LOW',
 ) {
-
   include windows_power::params
 
   validate_re($setting,keys($windows_power::params::batteryalarm_settings),'The setting argument does not match a valid batteryalarm setting')
@@ -48,8 +47,6 @@ define windows_power::global::battery(
         provider => windows,
       }
     }
-    default: {
-
-    }
+    default: {}
   }
 }

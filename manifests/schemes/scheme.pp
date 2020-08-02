@@ -38,14 +38,13 @@
 #       ensure          => 'present',
 #    }
 #
-define windows_power::schemes::scheme(
+define windows_power::schemes::scheme (
   $scheme_name,
   $scheme_guid,
   $template_scheme = '',
   $activation      = '',
   $ensure          = 'present',
 ) {
-
   include windows_power::params
 
   validate_string($scheme_name)
@@ -66,7 +65,6 @@ define windows_power::schemes::scheme(
   $scheme_check = "${windows_power::params::nasty_ps} \$items.contains('${scheme_name}')"
 
   if $ensure == 'present' {
-
     case $::operatingsystemversion {
       'Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2': {
         exec { "create power scheme ${scheme_name}":
@@ -112,4 +110,3 @@ define windows_power::schemes::scheme(
     }
   }
 }
-

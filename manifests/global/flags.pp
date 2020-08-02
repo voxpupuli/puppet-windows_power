@@ -26,11 +26,10 @@
 #       status => 'on',
 #    }
 #
-define windows_power::global::flags(
+define windows_power::global::flags (
   $setting,
   $status,
 ) {
-
   include windows_power::params
 
   validate_re($setting,$windows_power::params::globalpower_flags,'The setting argument does not match a valid globalpower flag')
@@ -43,8 +42,6 @@ define windows_power::global::flags(
         provider => windows,
       }
     }
-    default: {
-
-    }
+    default: {}
   }
 }

@@ -26,11 +26,10 @@
 #       ensure => 'enable',
 #    }
 #
-define windows_power::devices::wake(
+define windows_power::devices::wake (
   $device,
   $ensure = 'enable',
 ) {
-
   include windows_power::params
 
   validate_string($device)
