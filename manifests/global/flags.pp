@@ -35,7 +35,7 @@ define windows_power::global::flags (
   validate_re($setting,$windows_power::params::globalpower_flags,'The setting argument does not match a valid globalpower flag')
   validate_re($status,'^(on|off)$',"The status argument is not valid for ${setting}")
 
-  case $::operatingsystemversion {
+  case $facts['operatingsystemversion'] {
     'Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2': {
       exec { "set globalpowerflag ${setting}":
         command  => "${windows_power::params::powercfg} /globalpowerflag /option:${setting} ${status}",
