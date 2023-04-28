@@ -40,7 +40,7 @@ define windows_power::global::battery (
   validate_re($status,$windows_power::params::batteryalarm_settings[$setting],"The status argument is not valid for ${setting}")
   validate_re($criticality,'^(LOW|HIGH)$','The status argument does not match: LOW or HIGH')
 
-  case $::operatingsystemversion {
+  case $facts['operatingsystemversion'] {
     'Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2': {
       exec { "set batteryalarm ${setting}":
         command  => "${windows_power::params::powercfg} /batteryalarm ${criticality} /${setting} ${status}",

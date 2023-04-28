@@ -51,7 +51,7 @@ define windows_power::schemes::scheme (
   validate_re($scheme_guid,'^[A-Za-z0-9]{8}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{12}$','The scheme guid provided is not formatted correctly')
   validate_re($ensure,'^(present|absent)$','The ensure argument is not set to present or absent')
 
-  case $::operatingsystemversion {
+  case $facts['operatingsystemversion'] {
     'Windows Vista','Windows 7','Windows 8','Windows Server 2008','Windows Server 2008 R2','Windows Server 2012': {
       if $ensure == 'present' {
         validate_string($template_scheme)
@@ -65,7 +65,7 @@ define windows_power::schemes::scheme (
   $scheme_check = "${windows_power::params::nasty_ps} \$items.contains('${scheme_name}')"
 
   if $ensure == 'present' {
-    case $::operatingsystemversion {
+    case $facts['operatingsystemversion'] {
       'Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2': {
         exec { "create power scheme ${scheme_name}":
           command   => "& ${windows_power::params::powercfg} /create '${scheme_name}'",

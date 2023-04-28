@@ -35,9 +35,9 @@ define windows_power::devices::override (
   validate_re($type,'^(PROCESS|SERVICE|DRIVER)$','The caller type argument does not match: PROCESS, SERVICE or DRIVER')
   validate_re($request,'^(Display|System|Awaymode)$','The request type argument does not match: Display, System or Awaymode')
 
-  case $::operatingsystemversion {
+  case $facts['operatingsystemversion'] {
     'Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2': {
-      err("${::operatingsystemversion} does not support requestsoverride")
+      err("${facts['operatingsystemversion']} does not support requestsoverride")
     }
     default: {
       exec { "request override for ${name}":
