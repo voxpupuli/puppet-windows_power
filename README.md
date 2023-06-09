@@ -1,3 +1,5 @@
+**This module is deprecated. Do not use it anymore**
+
 # puppet-windows_power
 
 #### Table of Contents
