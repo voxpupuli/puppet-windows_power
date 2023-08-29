@@ -6,18 +6,13 @@
 #
 # This definition configured the battery alarm
 #
-# === Requirements/Dependencies
-#
-# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
-# order to validate much of the the provided configuration.
-#
 # === Parameters
 #
 # [*setting*]
 # Battery alarm setting to configure
 #
 # [*status*]
-# Setting configuration (on/off) or percentage (in the case of the level setting)
+# Setting configuration
 #
 # [*criticality*]
 # The level of battery criticality at which to provide an alarm. LOW or HIGH.
@@ -30,15 +25,19 @@
 #    }
 #
 define windows_power::global::battery (
-  $setting,
-  $status,
-  $criticality = 'LOW',
+  String[1] $setting,
+  String[1] $status,
+  Enum['LOW', 'HIGH'] $criticality = 'LOW',
 ) {
   include windows_power::params
 
-  validate_re($setting,keys($windows_power::params::batteryalarm_settings),'The setting argument does not match a valid batteryalarm setting')
-  validate_re($status,$windows_power::params::batteryalarm_settings[$setting],"The status argument is not valid for ${setting}")
-  validate_re($criticality,'^(LOW|HIGH)$','The status argument does not match: LOW or HIGH')
+  if ! ($setting in $windows_power::params::batteryalarm_settings) {
+    fail('The setting argument does not match a valid batteryalarm setting')
+  }
+
+  if $status !~ $windows_power::params::batteryalarm_settings[$setting] {
+    fail("The status argument is not valid for ${setting}")
+  }
 
   case $facts['operatingsystemversion'] {
     'Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2': {

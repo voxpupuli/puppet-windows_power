@@ -6,11 +6,6 @@
 #
 # This definition configures hibernation on a box
 #
-# === Requirements/Dependencies
-#
-# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
-# order to validate much of the the provided configuration.
-#
 # === Parameters
 #
 # [*status*]
@@ -23,11 +18,9 @@
 #    }
 #
 define windows_power::global::hibernation (
-  $status,
+  Enum['on', 'off'] $status,
 ) {
   include windows_power::params
-
-  validate_re($status,'^(on|off)$','The status argument is not valid for hibernate')
 
   exec { 'update hibernate status':
     command  => "${windows_power::params::powercfg} -hibernate ${status}",

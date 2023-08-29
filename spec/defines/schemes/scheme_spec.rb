@@ -16,32 +16,6 @@ describe 'windows_power::schemes::scheme', type: :define do
     end
   end
 
-  describe 'installing with invalid scheme guid' do
-    let(:title) { 'create new scheme test' }
-    let(:params) do
-      { scheme_name: 'test', scheme_guid: 'x' }
-    end
-
-    it do
-      expect do
-        is_expected.to contain_exec('create power scheme test')
-      end.to raise_error(Puppet::Error, %r{The scheme guid provided is not formatted correctly})
-    end
-  end
-
-  describe 'installing with invalid ensure' do
-    let(:title) { 'create new scheme test' }
-    let(:params) do
-      { scheme_name: 'test', scheme_guid: '381b4222-f694-41f0-9685-ff5bb260df2e', ensure: 'fubar' }
-    end
-
-    it do
-      expect do
-        is_expected.to contain_exec('create power scheme test')
-      end.to raise_error(Puppet::Error, %r{The ensure argument is not set to present or absent})
-    end
-  end
-
   ['Windows Vista', 'Windows 7', 'Windows 8', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Server 2012'].each do |os|
     describe 'installing with invalid template scheme name' do
       let(:title) { 'create new scheme test' }
@@ -56,22 +30,6 @@ describe 'windows_power::schemes::scheme', type: :define do
         expect do
           is_expected.to contain_exec('create power scheme test')
         end.to raise_error(Puppet::Error)
-      end
-    end
-
-    describe 'installing with invalid activation' do
-      let(:title) { 'create new scheme test' }
-      let(:facts) do
-        { operatingsystemversion: os }
-      end
-      let(:params) do
-        { scheme_name: 'test', scheme_guid: '381b4222-f694-41f0-9685-ff5bb260df2e', activation: 'fubar' }
-      end
-
-      it do
-        expect do
-          is_expected.to contain_exec('create power scheme test')
-        end.to raise_error(Puppet::Error, %r{The activation argument is not set to active or inactive})
       end
     end
   end

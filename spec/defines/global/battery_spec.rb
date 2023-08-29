@@ -29,19 +29,6 @@ describe 'windows_power::global::battery', type: :define do
     end
   end
 
-  describe 'installing with invalid criticality' do
-    let(:title) { 'sound off' }
-    let(:params) do
-      { setting: 'sound', status: 'on', criticality: 'xxx' }
-    end
-
-    it do
-      expect do
-        is_expected.to contain_exec('set batteryalarm sound')
-      end.to raise_error(Puppet::Error, %r{The status argument does not match: LOW or HIGH})
-    end
-  end
-
   ['Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2'].each do |os|
     describe 'installing setting sound' do
       let(:title) { 'sound' }

@@ -16,19 +16,6 @@ describe 'windows_power::devices::wake', type: :define do
     end
   end
 
-  describe 'enabling wake with invalid ensure' do
-    let(:title) { 'network-device' }
-    let(:params) do
-      { device: 'network-device', ensure: 'x' }
-    end
-
-    it do
-      expect do
-        is_expected.to contain_exec('device network-device enable wake')
-      end.to raise_error(Puppet::Error, %r{The ensure argument does not match: enable or disable})
-    end
-  end
-
   describe 'enabling wake' do
     let(:title) { 'VMBus Enumerator (001)' }
     let(:params) do

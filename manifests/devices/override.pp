@@ -6,11 +6,6 @@
 #
 # This definition manages a Power Request override for a particular Process, Service, or Driver.
 #
-# === Requirements/Dependencies
-#
-# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
-# order to validate much of the the provided configuration.
-#
 # === Parameters
 #
 # [*type*]
@@ -27,13 +22,10 @@
 #    }
 #
 define windows_power::devices::override (
-  $type,
-  $request,
+  Enum['PROCESS', 'SERVICE', 'DRIVER'] $type,
+  Enum['Display', 'System', 'Awaymode'] $request,
 ) {
   include windows_power::params
-
-  validate_re($type,'^(PROCESS|SERVICE|DRIVER)$','The caller type argument does not match: PROCESS, SERVICE or DRIVER')
-  validate_re($request,'^(Display|System|Awaymode)$','The request type argument does not match: Display, System or Awaymode')
 
   case $facts['operatingsystemversion'] {
     'Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2': {
