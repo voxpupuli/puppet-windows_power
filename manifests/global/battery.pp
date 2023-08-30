@@ -1,8 +1,4 @@
-# Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
-# Copyright:: Copyright (c) 2014 Liam Bennett
-# License::   Apache-2.0
-
-# Define windows_power::global::battery
+# == Define windows_power::global::battery
 #
 # This definition configured the battery alarm
 #

@@ -1,7 +1,3 @@
-# Author::    Liam Bennett (mailto:liamjbennett@gmail.com)
-# Copyright:: Copyright (c) 2014 Liam Bennett
-# License::   Apache-2.0
-
 # == Define: windows_power::devices::override
 #
 # This definition manages a Power Request override for a particular Process, Service, or Driver.
