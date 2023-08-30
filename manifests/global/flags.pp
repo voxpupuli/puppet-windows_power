@@ -34,7 +34,7 @@ define windows_power::global::flags (
   case $facts['operatingsystemversion'] {
     'Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2': {
       exec { "set globalpowerflag ${setting}":
-        command  => "${windows_power::params::powercfg} /globalpowerflag /option:${setting} ${status}",
+        command  => "powercfg /globalpowerflag /option:${setting} ${status}",
         provider => windows,
       }
     }

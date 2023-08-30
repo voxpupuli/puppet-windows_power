@@ -33,7 +33,7 @@ define windows_power::devices::override (
     }
     default: {
       exec { "request override for ${name}":
-        command  => "${windows_power::params::powercfg} /requestsoverride ${type} ${name} ${request}",
+        command  => "powercfg /requestsoverride ${type} ${name} ${request}",
         provider => windows,
       }
     }

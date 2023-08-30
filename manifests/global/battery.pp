@@ -42,7 +42,7 @@ define windows_power::global::battery (
   case $facts['operatingsystemversion'] {
     'Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2': {
       exec { "set batteryalarm ${setting}":
-        command  => "${windows_power::params::powercfg} /batteryalarm ${criticality} /${setting} ${status}",
+        command  => "powercfg /batteryalarm ${criticality} /${setting} ${status}",
         provider => windows,
       }
     }
