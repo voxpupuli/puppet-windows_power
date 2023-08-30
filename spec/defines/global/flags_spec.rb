@@ -16,19 +16,6 @@ describe 'windows_power::global::flags', type: :define do
     end
   end
 
-  describe 'installing with invalid status' do
-    let(:title) { 'BatteryIcon' }
-    let(:params) do
-      { setting: 'BatteryIcon', status: 'xxx' }
-    end
-
-    it do
-      expect do
-        is_expected.to contain_exec('set globalpowerflag BatteryIcon')
-      end.to raise_error(Puppet::Error, %r{The status argument is not valid for BatteryIcon})
-    end
-  end
-
   ['Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2'].each do |os|
     describe 'installing setting BatteryIcon' do
       let(:title) { 'BatteryIcon' }

@@ -6,11 +6,6 @@
 #
 # Module to mananage the configuration of a machines autoupdate settings
 #
-# === Requirements/Dependencies
-#
-# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
-# order to validate much of the the provided configuration.
-#
 # === Parameters
 #
 # === Examples

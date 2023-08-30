@@ -6,11 +6,6 @@
 #
 # This definition configures settings for a specific scheme
 #
-# === Requirements/Dependencies
-#
-# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
-# order to validate much of the the provided configuration.
-#
 # === Parameters
 #
 # [*scheme_name*]
@@ -31,18 +26,21 @@
 #    }
 #
 define windows_power::schemes::settings (
-  $scheme_name,
-  $setting,
-  $value,
+  String[1] $scheme_name,
+  String[1] $setting,
+  String[1] $value,
 ) {
   include windows_power::params
 
-  validate_string($scheme_name)
-
   $settings_regex = join(keys($windows_power::params::scheme_settings), '|')
-  validate_re($setting, "^(${settings_regex})$", 'The setting argument does not match a valid scheme setting')
 
-  validate_re($value, $windows_power::params::scheme_settings[$setting], "The value provided is not appropriate for the ${setting} setting")
+  if $setting !~ "^${settings_regex}$" {
+    fail('The setting argument does not match a valid scheme setting')
+  }
+
+  if $value !~ $windows_power::params::scheme_settings[$setting] {
+    fail("The value provided is not appropriate for the ${setting} setting")
+  }
 
   exec { "modify ${setting} setting for ${scheme_name}":
     command   => "& ${windows_power::params::powercfg} /change ${setting} ${value}",

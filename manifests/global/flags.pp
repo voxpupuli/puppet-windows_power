@@ -6,11 +6,6 @@
 #
 # This definition configured the battery alarm
 #
-# === Requirements/Dependencies
-#
-# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
-# order to validate much of the the provided configuration.
-#
 # === Parameters
 #
 # [*setting*]
@@ -27,13 +22,14 @@
 #    }
 #
 define windows_power::global::flags (
-  $setting,
-  $status,
+  String[1] $setting,
+  Enum['on', 'off'] $status,
 ) {
   include windows_power::params
 
-  validate_re($setting,$windows_power::params::globalpower_flags,'The setting argument does not match a valid globalpower flag')
-  validate_re($status,'^(on|off)$',"The status argument is not valid for ${setting}")
+  if ! ($setting in $windows_power::params::globalpower_flags) {
+    fail('The setting argument does not match a valid globalpower flag')
+  }
 
   case $facts['operatingsystemversion'] {
     'Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2': {

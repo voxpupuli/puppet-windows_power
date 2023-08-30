@@ -6,11 +6,6 @@
 #
 # This definition configures a specific power scheme
 #
-# === Requirements/Dependencies
-#
-# Currently reequires the puppetlabs/stdlib module on the Puppet Forge in
-# order to validate much of the the provided configuration.
-#
 # === Parameters
 #
 # [*scheme_name*]
@@ -39,29 +34,14 @@
 #    }
 #
 define windows_power::schemes::scheme (
-  $scheme_name,
-  $scheme_guid,
-  $template_scheme = '',
-  $activation      = '',
-  $ensure          = 'present',
+  String[1] $scheme_name,
+  Pattern[/\A[A-Za-z0-9]{8}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{12}\z/] $scheme_guid,
+  String[1] $template_scheme,
+  Enum['active', 'inactive'] $activation,
+  Enum['present', 'absent'] $ensure = 'present',
 ) {
   include windows_power::params
 
-  validate_string($scheme_name)
-  validate_re($scheme_guid,'^[A-Za-z0-9]{8}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{12}$','The scheme guid provided is not formatted correctly')
-  validate_re($ensure,'^(present|absent)$','The ensure argument is not set to present or absent')
-
-  case $facts['operatingsystemversion'] {
-    'Windows Vista','Windows 7','Windows 8','Windows Server 2008','Windows Server 2008 R2','Windows Server 2012': {
-      if $ensure == 'present' {
-        validate_string($template_scheme)
-        validate_re($activation,'^(active|inactive)$','The activation argument is not set to active or inactive')
-      }
-    }
-    default: {}
-  }
-
-  $template_guid = $windows_power::params::template_schemes[$template_scheme]
   $scheme_check = "${windows_power::params::nasty_ps} \$items.contains('${scheme_name}')"
 
   if $ensure == 'present' {

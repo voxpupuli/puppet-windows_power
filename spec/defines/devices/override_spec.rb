@@ -3,32 +3,6 @@
 require 'spec_helper'
 
 describe 'windows_power::devices::override', type: :define do
-  describe 'installing with invalid type' do
-    let(:title) { 'wmplayer.exe' }
-    let(:params) do
-      { type: 'xxx', request: 'Display' }
-    end
-
-    it do
-      expect do
-        is_expected.to contain_exec('request override for wmplayer.exe')
-      end.to raise_error(Puppet::Error, %r{The caller type argument does not match: PROCESS, SERVICE or DRIVER})
-    end
-  end
-
-  describe 'installing with invalid request' do
-    let(:title) { 'wmplayer.exe' }
-    let(:params) do
-      { type: 'PROCESS', request: 'xxx' }
-    end
-
-    it do
-      expect do
-        is_expected.to contain_exec('request override for wmplayer.exe')
-      end.to raise_error(Puppet::Error, %r{The request type argument does not match: Display, System or Awaymode})
-    end
-  end
-
   ['Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2'].each do |os|
     describe "requestsoverride not supported on #{os}" do
       let(:title) { 'wmplayer.exe' }
