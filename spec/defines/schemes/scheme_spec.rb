@@ -3,138 +3,94 @@
 require 'spec_helper'
 
 describe 'windows_power::schemes::scheme', type: :define do
-  describe 'installing with invalid scheme name' do
-    let(:title) { 'create new scheme test' }
-    let(:params) do
-      { scheme_name: true, scheme_guid: '381b4222-f694-41f0-9685-ff5bb260df2e' }
-    end
+  describe 'creating inactive scheme' do
+    let(:title) { 'inactive_scheme' }
+      let(:params) do
+        {
+          scheme_name: 'inactive_scheme',
+          scheme_guid: '381b4222-f694-41f0-9685-ff5bbxx65ddx',
+          template_scheme: '381b4222-f694-41f0-9685-ff5bb260df2e',
+          activation: 'inactive',
+          ensure: 'present'
+        }
+      end
 
     it do
-      expect do
-        is_expected.to contain_exec('create power scheme test')
-      end.to raise_error(Puppet::Error)
-    end
-  end
-
-  ['Windows Vista', 'Windows 7', 'Windows 8', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Server 2012'].each do |os|
-    describe 'installing with invalid template scheme name' do
-      let(:title) { 'create new scheme test' }
-      let(:facts) do
-        { operatingsystemversion: os }
-      end
-      let(:params) do
-        { scheme_name: true, scheme_guid: '381b4222-f694-41f0-9685-ff5bb260df2e', template_scheme: true }
-      end
-
-      it do
-        expect do
-          is_expected.to contain_exec('create power scheme test')
-        end.to raise_error(Puppet::Error)
-      end
-    end
-  end
-
-  ['Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2'].each do |os|
-    describe "create scheme on #{os}" do
-      let(:title) { 'create new scheme test' }
-      let(:facts) do
-        { operatingsystemversion: os }
-      end
-      let(:params) do
-        { scheme_name: 'test', scheme_guid: '381b4222-f694-41f0-9685-ff5bb260df2f', ensure: 'present' }
-      end
-
-      it do
-        is_expected.to contain_exec('create power scheme test').with(
-          'provider' => 'powershell',
-          'command' => '& C:\Windows\System32\powercfg.exe /create \'test\''
-        )
-      end
-
-      it { is_expected.to compile }
-    end
-  end
-
-  ['Windows Vista', 'Windows 7', 'Windows 8', 'Windows Server 2008', 'Windows Server 2008 R2', 'Windows Server 2012'].each do |os|
-    describe "create and activate scheme on #{os}" do
-      let(:title) { 'create new scheme test' }
-      let(:facts) do
-        { operatingsystemversion: os }
-      end
-      let(:params) do
-        { scheme_name: 'test', scheme_guid: '381b4222-f694-41f0-9685-ff5bb260df2f',
-          template_scheme: '381b4222-f694-41f0-9685-ff5bb260df2e', ensure: 'present', activation: 'active' }
-      end
-
-      it do
-        is_expected.to contain_exec('create power scheme test').with(
-          'provider' => 'powershell',
-          'command' => '& C:\Windows\System32\powercfg.exe -duplicatescheme 381b4222-f694-41f0-9685-ff5bb260df2e 381b4222-f694-41f0-9685-ff5bb260df2f'
-        )
-      end
-
-      it do
-        is_expected.to contain_exec('rename scheme to test').with(
-          'provider' => 'powershell',
-          'command' => '& C:\Windows\System32\powercfg.exe -changename 381b4222-f694-41f0-9685-ff5bb260df2f \'test\''
-        )
-      end
-
-      it do
-        is_expected.to contain_exec('set test scheme as active').with(
-          'provider' => 'powershell',
-          'command' => '& C:\Windows\System32\powercfg.exe -setactive 381b4222-f694-41f0-9685-ff5bb260df2f'
-        )
-      end
-
-      it { is_expected.to compile }
-    end
-
-    describe "create and inactive scheme on #{os}" do
-      let(:title) { 'create new scheme test' }
-      let(:facts) do
-        { operatingsystemversion: os }
-      end
-      let(:params) do
-        { scheme_name: 'test', scheme_guid: '381b4222-f694-41f0-9685-ff5bb260df2f',
-          template_scheme: '381b4222-f694-41f0-9685-ff5bb260df2e', ensure: 'present', activation: 'inactive' }
-      end
-
-      it do
-        is_expected.to contain_exec('create power scheme test').with(
-          'provider' => 'powershell',
-          'command' => '& C:\Windows\System32\powercfg.exe -duplicatescheme 381b4222-f694-41f0-9685-ff5bb260df2e 381b4222-f694-41f0-9685-ff5bb260df2f'
-        )
-      end
-
-      it do
-        is_expected.to contain_exec('rename scheme to test').with(
-          'provider' => 'powershell',
-          'command' => '& C:\Windows\System32\powercfg.exe -changename 381b4222-f694-41f0-9685-ff5bb260df2f \'test\''
-        )
-      end
-
-      it { is_expected.not_to contain_exec('set test scheme as active') }
-      it { is_expected.to compile }
-    end
-  end
-
-  describe 'delete scheme' do
-    let(:title) { 'delete scheme scheme test' }
-    let(:facts) do
-      { operatingsystemversion: 'Windows 2008 R2' }
-    end
-    let(:params) do
-      { scheme_name: 'test', scheme_guid: '381b4222-f694-41f0-9685-ff5bb260df2f', ensure: 'absent' }
-    end
-
-    it do
-      is_expected.to contain_exec('delete power scheme test').with(
+      is_expected.to contain_exec('create power scheme inactive_scheme').with(
         'provider' => 'powershell',
-        'command' => '& C:\Windows\System32\powercfg.exe -delete 381b4222-f694-41f0-9685-ff5bb260df2f'
+        'command' => '& powercfg /duplicatescheme 381b4222-f694-41f0-9685-ff5bb260df2e 381b4222-f694-41f0-9685-ff5bbxx65ddx'
       )
     end
 
+    it do
+      is_expected.to contain_exec('rename scheme to inactive_scheme').with(
+        'provider' => 'powershell',
+        'command' => '& powercfg /changename 381b4222-f694-41f0-9685-ff5bbxx65ddx \'inactive_scheme\''
+      )
+    end
+
+    it { is_expected.not_to contain_exec('set inactive_scheme scheme as active') }
+    it { is_expected.not_to contain_exec('delete power scheme inactive_scheme') }
+    it { is_expected.to compile }
+  end
+
+  describe 'creating and activating scheme' do
+    let(:title) { 'active_scheme' }
+      let(:params) do
+        {
+          scheme_name: 'active_scheme',
+          scheme_guid: '381b4222-f694-41f0-9685-ff5bbxx65ddy',
+          template_scheme: '381b4222-f694-41f0-9685-ff5bb260df2e',
+          activation: 'active',
+          ensure: 'present'
+        }
+
+    it do
+      is_expected.to contain_exec('create power scheme active_scheme').with(
+        'provider' => 'powershell',
+        'command' => '& powercfg /duplicatescheme 381b4222-f694-41f0-9685-ff5bb260df2e 381b4222-f694-41f0-9685-ff5bbxx65ddy'
+      )
+    end
+
+    it do
+      is_expected.to contain_exec('rename scheme to active_scheme').with(
+        'provider' => 'powershell',
+        'command' => '& powercfg /changename 381b4222-f694-41f0-9685-ff5bbxx65ddy \'active_scheme\''
+      )
+    end
+
+    it do
+      is_expected.to contain_exec('set active_scheme scheme as active').with(
+        'provider' => 'powershell',
+        'command' => '& powercfg /setactive 381b4222-f694-41f0-9685-ff5bbxx65ddy'
+      )
+    end
+
+    it { is_expected.not_to contain_exec('delete power scheme active_scheme') }
+    it { is_expected.to compile }
+  end
+
+  describe 'deleting scheme' do
+    let(:title) { 'delete_scheme' }
+      let(:params) do
+        {
+          scheme_name: 'delete_scheme',
+          scheme_guid: '381b4222-f694-41f0-9685-ff5bbxx65ddz',
+          template_scheme: '381b4222-f694-41f0-9685-ff5bb260df2e',
+          activation: 'inactive',
+          ensure: 'absent'
+        }
+
+    it do
+      is_expected.to contain_exec('delete power scheme delete_scheme').with(
+        'provider' => 'powershell',
+        'command' => '& powercfg /delete 381b4222-f694-41f0-9685-ff5bbxx65ddz'
+      )
+    end
+
+    it { is_expected.not_to contain_exec('create power scheme delete_scheme') }
+    it { is_expected.not_to contain_exec('rename scheme to delete_scheme') }
+    it { is_expected.not_to contain_exec('set delete_scheme scheme as active') }
     it { is_expected.to compile }
   end
 end

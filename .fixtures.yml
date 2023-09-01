@@ -2,4 +2,3 @@ fixtures:
   repositories:
     powershell:  'https://github.com/puppetlabs/puppetlabs-powershell.git'
     pwshlib: 'https://github.com/puppetlabs/ruby-pwsh.git'
-    win_facts:  'https://github.com/liamjbennett/puppet-win_facts.git'

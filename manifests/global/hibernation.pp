@@ -19,7 +19,7 @@ define windows_power::global::hibernation (
   include windows_power::params
 
   exec { 'update hibernate status':
-    command  => "powercfg /hibernate ${status}",
     provider => windows,
+    command  => "powercfg /hibernate ${status}",
   }
 }

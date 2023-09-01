@@ -23,15 +23,8 @@ define windows_power::devices::override (
 ) {
   include windows_power::params
 
-  case $facts['operatingsystemversion'] {
-    'Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2': {
-      err("${facts['operatingsystemversion']} does not support requestsoverride")
-    }
-    default: {
-      exec { "request override for ${name}":
-        command  => "powercfg /requestsoverride ${type} ${name} ${request}",
-        provider => windows,
-      }
-    }
+  exec { "request override for ${name}":
+    provider => windows,
+    command  => "powercfg /requestsoverride ${type} ${name} ${request}",
   }
 }

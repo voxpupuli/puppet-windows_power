@@ -24,7 +24,7 @@ define windows_power::devices::wake (
   include windows_power::params
 
   exec { "device ${device} ${ensure} wake":
-    command  => "powercfg /device${ensure}wake \"${device}\"",
     provider => windows,
+    command  => "powercfg /device${ensure}wake \"${device}\"",
   }
 }

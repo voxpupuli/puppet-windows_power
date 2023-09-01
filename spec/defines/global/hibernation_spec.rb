@@ -11,9 +11,12 @@ describe 'windows_power::global::hibernation', type: :define do
 
     it do
       is_expected.to contain_exec('update hibernate status').with(
-        'command' => 'C:\Windows\System32\powercfg.exe -hibernate on'
+        'provider' => 'windows',
+        'command' => 'powercfg /hibernate on'
       )
     end
+
+    it { is_expected.to compile }
   end
 
   describe 'updating hibernate off' do
@@ -24,8 +27,11 @@ describe 'windows_power::global::hibernation', type: :define do
 
     it do
       is_expected.to contain_exec('update hibernate status').with(
-        'command' => 'C:\Windows\System32\powercfg.exe -hibernate off'
+        'provider' => 'windows',
+        'command' => 'powercfg /hibernate off'
       )
     end
+
+    it { is_expected.to compile }
   end
 end

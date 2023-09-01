@@ -31,56 +31,44 @@
 #
 define windows_power::schemes::scheme (
   String[1] $scheme_name,
-  Pattern[/\A[A-Za-z0-9]{8}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{12}\z/] $scheme_guid,
-  String[1] $template_scheme,
+  Pattern[/\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\z/] $scheme_guid,
+  Pattern[/\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\z/] $template_scheme,
   Enum['active', 'inactive'] $activation,
   Enum['present', 'absent'] $ensure = 'present',
 ) {
   include windows_power::params
 
   if $ensure == 'present' {
-    case $facts['operatingsystemversion'] {
-      'Windows XP', 'Windows Server 2003', 'Windows Server 2003 R2': {
-        exec { "create power scheme ${scheme_name}":
-          command   => "& powercfg /create '${scheme_name}'",
-          provider  => powershell,
-          logoutput => true,
-          onlyif    => "${windows_power::params::nasty_ps} \$items.contains('${scheme_name}')",
-        }
-      }
-      default: {
-        exec { "create power scheme ${scheme_name}":
-          command   => "& powercfg /duplicatescheme ${template_scheme} ${scheme_guid}",
-          provider  => powershell,
-          logoutput => true,
-          unless    => "powercfg /query ${scheme_guid}",
-        }
+    exec { "create power scheme ${scheme_name}":
+      provider  => powershell,
+      command   => "& powercfg /duplicatescheme ${template_scheme} ${scheme_guid}",
+      logoutput => true,
+      unless    => "powercfg /query ${scheme_guid}",
+    }
 
-        exec { "rename scheme to ${scheme_name}":
-          command   => "& powercfg /changename ${scheme_guid} '${scheme_name}'",
-          provider  => powershell,
-          logoutput => true,
-          onlyif    => "if (Get-CimInstance -Namespace root\\cimv2\\power -ClassName win32_powerplan -Filter \"ElementName = '${scheme_name}'\" | Where -property InstanceID -eq 'Microsoft:PowerPlan\\{${scheme_guid}}') { exit 1 } else { exit 0 }",
-          require   => Exec["create power scheme ${scheme_name}"],
-        }
+    exec { "rename scheme to ${scheme_name}":
+      provider  => powershell,
+      command   => "& powercfg /changename ${scheme_guid} '${scheme_name}'",
+      logoutput => true,
+      onlyif    => "if (Get-CimInstance -Namespace root\\cimv2\\power -ClassName win32_powerplan -Filter \"ElementName = '${scheme_name}'\" | Where -property InstanceID -eq 'Microsoft:PowerPlan\\{${scheme_guid}}') { exit 1 } else { exit 0 }",
+      require   => Exec["create power scheme ${scheme_name}"],
+    }
+
+    if $activation == 'active' {
+      exec { "set ${scheme_name} scheme as active":
+        provider  => powershell,
+        command   => "& powercfg /setactive ${scheme_guid}",
+        logoutput => true,
+        onlyif    => "if (Get-CimInstance -Namespace root\\cimv2\\power -ClassName win32_powerplan -Filter \"IsActive = True\" | Where -property InstanceID -eq 'Microsoft:PowerPlan\\{${scheme_guid}}') { exit 1 }",
       }
     }
   }
   elsif $ensure == 'absent' {
     exec { "delete power scheme ${scheme_name}":
-      command   => "& powercfg /delete ${scheme_guid}",
       provider  => powershell,
+      command   => "& powercfg /delete ${scheme_guid}",
       logoutput => true,
       onlyif    => "powercfg /query ${scheme_guid}",
-    }
-  }
-
-  if $activation == 'active' {
-    exec { "set ${scheme_name} scheme as active":
-      command   => "& powercfg /setactive ${scheme_guid}",
-      provider  => powershell,
-      logoutput => true,
-      onlyif    => "if (Get-CimInstance -Namespace root\\cimv2\\power -ClassName win32_powerplan -Filter \"IsActive = True\" | Where -property InstanceID -eq 'Microsoft:PowerPlan\\{${scheme_guid}}') { exit 1 }",
     }
   }
 }

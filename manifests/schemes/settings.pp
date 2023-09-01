@@ -23,24 +23,23 @@
 #
 define windows_power::schemes::settings (
   String[1] $scheme_name,
-  String[1] $setting,
-  String[1] $value,
+  Enum[
+    'monitor-timeout-ac',
+    'monitor-timeout-dc',
+    'disk-timeout-ac',
+    'disk-timeout-dc',
+    'standby-timeout-ac',
+    'standby-timeout-dc',
+    'hibernate-timeout-ac',
+    'hibernate-timeout-dc'
+  ] $setting,
+  Integer[0] $value,
 ) {
   include windows_power::params
 
-  $settings_regex = join(keys($windows_power::params::scheme_settings), '|')
-
-  if $setting !~ "^${settings_regex}$" {
-    fail('The setting argument does not match a valid scheme setting')
-  }
-
-  if $value !~ $windows_power::params::scheme_settings[$setting] {
-    fail("The value provided is not appropriate for the ${setting} setting")
-  }
-
   exec { "modify ${setting} setting for ${scheme_name}":
-    command   => "& powercfg /change ${setting} ${value}",
     provider  => powershell,
+    command   => "& powercfg /change ${setting} ${value}",
     logoutput => true,
     unless    => "${windows_power::params::nasty_ps} \$items.contains('${scheme_name}')",
   }
