@@ -41,6 +41,6 @@ define windows_power::schemes::settings (
     provider  => powershell,
     command   => "& powercfg /change ${setting} ${value}",
     logoutput => true,
-    unless    => "${windows_power::params::nasty_ps} \$items.contains('${scheme_name}')",
+    unless    => "([System.Collections.ArrayList]@(powercfg /l | % { if ($_ -match '^.*GUID.*\((.*)\).*$') {\$matches[1]} })).contains('${scheme_name}')",
   }
 }
