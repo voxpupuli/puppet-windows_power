@@ -1,7 +1,7 @@
 class windows_power::hibernate (
 	Boolean $enable,
-	Optional[Integer[40, 100]] $hiberfile_size,
-	Optional[Enum['reduced', 'full']] $hiberfile_type,
+	Optional[Integer[40, 100]] $hiberfile_size = undef,
+	Optional[Enum['reduced', 'full']] $hiberfile_type = undef,
 ) {
 	if $enable {
 		exec { 'enable_hibernate':
