@@ -1,3 +1,53 @@
+# @summary class to manage Windows power scheme
+#
+# @example activate the "High performance" system scheme
+#   class { 'windows_power::scheme':
+#     guid => '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c'
+#   }
+#
+# @example activate the "Balanced" system scheme and set some monitor timeouts
+#   class { 'windows_power::scheme':
+#     guid     => '381b4222-f694-41f0-9685-ff5bb260df2e',
+#     settings => {
+#       monitor-timeout-ac => 30,
+#       monitor-timeout-dc => 10
+#     }
+#   }
+#
+# @example create a custom template inheriting "High performance" and tweak on that
+#   class { 'windows_power::scheme':
+#     guid     => 'a1582e9e-9c9d-46fd-afdf-4d989292a073',
+#     label    => 'really full power',
+#     template => '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c',
+#     settings => {
+#       disk-timeout-ac      => 0,
+#       disk-timeout-dc      => 0,
+#       standby-timeout-ac   => 0,
+#       standby-timeout-dc   => 0,
+#       hibernate-timeout-ac => 0,
+#       hibernate-timeout-dc => 0
+#     }
+#   }
+#
+# @param guid
+#   GUID of the scheme to create/activate;
+#   to activate/handle an existing scheme (e.g. the ones provided by the system) don't define a template;
+#   to create (and activate and handle) a new scheme (derived from an existing one) define the template.
+#
+# @param label
+#   desired label/name/title of the scheme (optional, recommended for custom schemes)
+#
+# @param template
+#   GUID of the template scheme to use for creating a new custom scheme (optional);
+#   if the template does not exist no action is performed; so it's safe to define a template that will appear later somehow.
+#
+# @param description
+#   desired descriptive text of the scheme (optional)
+#
+# @param settings
+#   settings to change (optional);
+#   settings are applied to the active scheme and only if this matches the declared GUID; this way accidential configuration of the wrong
+#   scheme is avoided but it might need more than one puppet run to complete all tasks.
 class windows_power::scheme (
 	Pattern[/\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\z/] $guid,
 	Optional[String[1]] $label = undef,

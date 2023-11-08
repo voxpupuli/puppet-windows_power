@@ -1,3 +1,30 @@
+# @summary class to manage Windows hibernate settings
+#
+# @example disable hibernation system wide
+#   class { 'windows_power::hibernate':
+#     enable => false
+#   }
+#
+# @example enable hibernation with default settings
+#   class { 'windows_power::hibernate':
+#     enable => true
+#   }
+#
+# @example enable and configure hibernation
+#   class { 'windows_power::hibernate':
+#     enable         => true,
+#     hiberfile_size => 100,
+#     hiberfile_type => 'full'
+#   }
+#
+# @param enable
+#   enable/disable the hibernate feature
+#
+# @param hiberfile_size
+#   set desired hiberfile size (percentage of total memory, 40-100)
+#
+# @param hiberfile_type
+#   set desired hiberfile type (`reduced`/`full`)
 class windows_power::hibernate (
 	Boolean $enable,
 	Optional[Integer[40, 100]] $hiberfile_size = undef,
