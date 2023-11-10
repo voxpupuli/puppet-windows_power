@@ -31,13 +31,13 @@
 # @param devices
 #   hash of devices/drivers/services/tools to manage and what/how
 class windows_power (
-	Optional[Hash[String[1], Hash[Pattern[/^[a-z][a-z0-9_]*$/], Data, 1], 1]] $devices = undef,
+  Optional[Hash[String[1], Hash[Pattern[/^[a-z][a-z0-9_]*$/], Data, 1], 1]] $devices = undef,
 ) {
-	if $devices !~ Undef {
-		each($devices) |$key, $value| {
-			windows_power::device { $key:
-				* => $value,
-			}
-		}
-	}
+  if $devices !~ Undef {
+    each($devices) |$key, $value| {
+      windows_power::device { $key:
+        * => $value,
+      }
+    }
+  }
 }
