@@ -85,7 +85,7 @@ class windows_power::scheme (
     exec { 'activate_power_scheme':
       provider => powershell,
       command  => "& powercfg /setactive ${guid}",
-      onlyif   => "([System.Collections.ArrayList]@(powercfg /l | % { if ($_ -match '^.*?([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}).*$') {\$matches[1]} })).contains('${guid}')",
+      onlyif   => "([System.Collections.ArrayList]@(powercfg /l | % { if (\$_ -match '^.*?([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}).*\$') {\$matches[1]} })).contains('${guid}')",
     }
   }
 
