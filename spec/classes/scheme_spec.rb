@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'windows_power::scheme' do
@@ -14,13 +16,15 @@ describe 'windows_power::scheme' do
   context 'activate existing power scheme' do
     context 'which is not active yet' do
       let(:facts) do
-        super().merge({
-          power_schemes: {
-            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
-              active: false
+        super().merge(
+          {
+            power_schemes: {
+              '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
+                active: false
+              }
             }
           }
-        })
+        )
       end
 
       let(:params) do
@@ -40,13 +44,15 @@ describe 'windows_power::scheme' do
 
     context 'which is active already' do
       let(:facts) do
-        super().merge({
-          power_schemes: {
-            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
-              active: true
+        super().merge(
+          {
+            power_schemes: {
+              '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
+                active: true
+              }
             }
           }
-        })
+        )
       end
 
       let(:params) do
@@ -67,11 +73,13 @@ describe 'windows_power::scheme' do
 
   context 'activate non-existing power scheme' do
     let(:facts) do
-      super().merge({
-        power_schemes: {
-          '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {}
+      super().merge(
+        {
+          power_schemes: {
+            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {}
+          }
         }
-      })
+      )
     end
 
     let(:params) do
@@ -92,14 +100,16 @@ describe 'windows_power::scheme' do
   context 'rename existing power scheme' do
     context 'to new name' do
       let(:facts) do
-        super().merge({
-          power_schemes: {
-            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
-              active: true,
-              name: 'High performance'
+        super().merge(
+          {
+            power_schemes: {
+              '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
+                active: true,
+                name: 'High performance'
+              }
             }
           }
-        })
+        )
       end
 
       let(:params) do
@@ -120,14 +130,16 @@ describe 'windows_power::scheme' do
 
     context 'to matching name' do
       let(:facts) do
-        super().merge({
-          power_schemes: {
-            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
-              active: true,
-              name: 'super power'
+        super().merge(
+          {
+            power_schemes: {
+              '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
+                active: true,
+                name: 'super power'
+              }
             }
           }
-        })
+        )
       end
 
       let(:params) do
@@ -150,11 +162,13 @@ describe 'windows_power::scheme' do
   context 'duplicate existing power scheme' do
     context 'as new scheme' do
       let(:facts) do
-        super().merge({
-          power_schemes: {
-            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {}
+        super().merge(
+          {
+            power_schemes: {
+              '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {}
+            }
           }
-        })
+        )
       end
 
       let(:params) do
@@ -175,14 +189,16 @@ describe 'windows_power::scheme' do
 
     context 'as existing scheme' do
       let(:facts) do
-        super().merge({
-          power_schemes: {
-            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {},
-            '3c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
-              active: true
+        super().merge(
+          {
+            power_schemes: {
+              '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {},
+              '3c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
+                active: true
+              }
             }
           }
-        })
+        )
       end
 
       let(:params) do
@@ -204,11 +220,13 @@ describe 'windows_power::scheme' do
 
   context 'duplicate non-existing power scheme' do
     let(:facts) do
-      super().merge({
-        power_schemes: {
-          '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {}
+      super().merge(
+        {
+          power_schemes: {
+            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {}
+          }
         }
-      })
+      )
     end
 
     let(:params) do
@@ -230,13 +248,15 @@ describe 'windows_power::scheme' do
   context 'configure existing power scheme' do
     context 'which is active already' do
       let(:facts) do
-        super().merge({
-          power_schemes: {
-            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
-              active: true
+        super().merge(
+          {
+            power_schemes: {
+              '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
+                active: true
+              }
             }
           }
-        })
+        )
       end
 
       let(:params) do
@@ -262,13 +282,15 @@ describe 'windows_power::scheme' do
 
     context 'which is not active yet' do
       let(:facts) do
-        super().merge({
-          power_schemes: {
-            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
-              active: false
+        super().merge(
+          {
+            power_schemes: {
+              '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
+                active: false
+              }
             }
           }
-        })
+        )
       end
 
       let(:params) do
@@ -295,11 +317,13 @@ describe 'windows_power::scheme' do
 
   context 'configure non-existing power scheme' do
     let(:facts) do
-      super().merge({
-        power_schemes: {
-          '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {}
+      super().merge(
+        {
+          power_schemes: {
+            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {}
+          }
         }
-      })
+      )
     end
 
     let(:params) do

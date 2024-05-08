@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# rubocop:disable Style/RegexpLiteral
+
 Facter.add(:power_schemes) do
   confine kernel: 'windows'
 
@@ -18,3 +22,5 @@ Facter.add(:power_schemes) do
     power_schemes
   end
 end
+
+# rubocop:enable Style/RegexpLiteral

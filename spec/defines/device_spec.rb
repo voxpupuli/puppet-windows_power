@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'windows_power::device' do
@@ -22,14 +24,16 @@ describe 'windows_power::device' do
 
     context 'if it doesn\'t already' do
       let(:facts) do
-        super().merge({
-          power_devices: {
-            'HID-compliant mouse (001)': {
-              wake_programmable: true,
-              wake_armed: false
+        super().merge(
+          {
+            power_devices: {
+              'HID-compliant mouse (001)': {
+                wake_programmable: true,
+                wake_armed: false
+              }
             }
           }
-        })
+        )
       end
 
       it { is_expected.to compile.with_all_deps }
@@ -41,14 +45,16 @@ describe 'windows_power::device' do
 
     context 'if it does already' do
       let(:facts) do
-        super().merge({
-          power_devices: {
-            'HID-compliant mouse (001)': {
-              wake_programmable: true,
-              wake_armed: true
+        super().merge(
+          {
+            power_devices: {
+              'HID-compliant mouse (001)': {
+                wake_programmable: true,
+                wake_armed: true
+              }
             }
           }
-        })
+        )
       end
 
       it { is_expected.to compile.with_all_deps }
@@ -60,9 +66,11 @@ describe 'windows_power::device' do
 
     context 'if it doesn\'t exist' do
       let(:facts) do
-        super().merge({
-          power_devices: {}
-        })
+        super().merge(
+          {
+            power_devices: {}
+          }
+        )
       end
 
       it { is_expected.to compile.with_all_deps }
@@ -74,13 +82,15 @@ describe 'windows_power::device' do
 
     context 'if it doesn\'t allow to' do
       let(:facts) do
-        super().merge({
-          power_devices: {
-            'HID-compliant mouse (001)': {
-              wake_programmable: false
+        super().merge(
+          {
+            power_devices: {
+              'HID-compliant mouse (001)': {
+                wake_programmable: false
+              }
             }
           }
-        })
+        )
       end
 
       it { is_expected.to compile.with_all_deps }
@@ -102,14 +112,16 @@ describe 'windows_power::device' do
 
     context 'if it does' do
       let(:facts) do
-        super().merge({
-          power_devices: {
-            'HID-compliant mouse (001)': {
-              wake_programmable: true,
-              wake_armed: true
+        super().merge(
+          {
+            power_devices: {
+              'HID-compliant mouse (001)': {
+                wake_programmable: true,
+                wake_armed: true
+              }
             }
           }
-        })
+        )
       end
 
       it { is_expected.to compile.with_all_deps }
@@ -121,14 +133,16 @@ describe 'windows_power::device' do
 
     context 'if it doesn\'t' do
       let(:facts) do
-        super().merge({
-          power_devices: {
-            'HID-compliant mouse (001)': {
-              wake_programmable: true,
-              wake_armed: false
+        super().merge(
+          {
+            power_devices: {
+              'HID-compliant mouse (001)': {
+                wake_programmable: true,
+                wake_armed: false
+              }
             }
           }
-        })
+        )
       end
 
       it { is_expected.to compile.with_all_deps }
@@ -141,9 +155,11 @@ describe 'windows_power::device' do
 
   context 'if device is not in facts' do
     let(:facts) do
-      super().merge({
-        power_devices: {}
-      })
+      super().merge(
+        {
+          power_devices: {}
+        }
+      )
     end
 
     context 'don\'t allow Windows media player to keep system from turning off the display or from going to away mode' do
@@ -196,18 +212,20 @@ describe 'windows_power::device' do
       let(:title) { 'Realtek PCIe GbE Family Controller' }
 
       let(:facts) do
-        super().merge({
-          power_devices: {
-            'Realtek PCIe GbE Family Controller': {
-              power_request_overrides: {
-                driver: {
-                  display: true,
-                  system: true
+        super().merge(
+          {
+            power_devices: {
+              'Realtek PCIe GbE Family Controller': {
+                power_request_overrides: {
+                  driver: {
+                    display: true,
+                    system: true
+                  }
                 }
               }
             }
           }
-        })
+        )
       end
 
       let(:params) do
@@ -237,18 +255,20 @@ describe 'windows_power::device' do
         let(:title) { 'Realtek PCIe GbE Family Controller' }
 
         let(:facts) do
-          super().merge({
-            power_devices: {
-              'Realtek PCIe GbE Family Controller': {
-                power_request_overrides: {
-                  driver: {
-                    system: true,
-                    awaymode: true
+          super().merge(
+            {
+              power_devices: {
+                'Realtek PCIe GbE Family Controller': {
+                  power_request_overrides: {
+                    driver: {
+                      system: true,
+                      awaymode: true
+                    }
                   }
                 }
               }
             }
-          })
+          )
         end
 
         let(:params) do
@@ -277,17 +297,19 @@ describe 'windows_power::device' do
         let(:title) { 'VPN Service' }
 
         let(:facts) do
-          super().merge({
-            power_devices: {
-              'VPN Service': {
-                power_request_overrides: {
-                  service: {
-                    system: true
+          super().merge(
+            {
+              power_devices: {
+                'VPN Service': {
+                  power_request_overrides: {
+                    service: {
+                      system: true
+                    }
                   }
                 }
               }
             }
-          })
+          )
         end
 
         let(:params) do
