@@ -1,6 +1,6 @@
 {
   "name": "puppet-windows_power",
-  "version": "4.0.0-rc0",
+  "version": "4.0.0",
   "author": "markt.de GmbH & Co. KG",
   "license": "Apache-2.0",
   "summary": "Module to manage the power settings on Windows",
