@@ -4,6 +4,37 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.0.0](https://github.com/voxpupuli/puppet-windows_power/tree/v4.0.0) (2024-05-10)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-windows_power/compare/v3.0.2...v4.0.0)
+
+This is a complete module rewrite/modernization (almost from scratch, but being inspired by what has been there before).
+
+Beyond the Puppet language modernization (and corresponding module redesign) we can summarize the relevant (and breaking) changes as follows:
+- drop support for legacy windows systems
+- remove functionality targeting those legacy systems
+- rework shell/powershell commands and codes accordingly
+- correct datatypes and values to match up-to-date systems
+- drop dependency to liamjbennett/puppet-win_facts
+- update general dependencies/requirements
+- add facts `power_schemes` and `power_devices` and structure the module around them
+
+**Breaking changes:**
+
+- great rework [\#54](https://github.com/voxpupuli/puppet-windows_power/pull/54) ([Lightning-](https://github.com/Lightning-))
+- Drop Puppet 6 support [\#51](https://github.com/voxpupuli/puppet-windows_power/pull/51) ([bastelfreak](https://github.com/bastelfreak))
+- modulesync 2.7.0 and drop puppet 4 [\#33](https://github.com/voxpupuli/puppet-windows_power/pull/33) ([bastelfreak](https://github.com/bastelfreak))
+
+**Closed issues:**
+
+- Settings can only be changed for the currently active scheme [\#36](https://github.com/voxpupuli/puppet-windows_power/issues/36)
+- Use in-built Windows Facter facts [\#9](https://github.com/voxpupuli/puppet-windows_power/issues/9)
+
+**Merged pull requests:**
+
+- drop stdlib dependency [\#53](https://github.com/voxpupuli/puppet-windows_power/pull/53) ([Lightning-](https://github.com/Lightning-))
+- Remove duplicate CONTRIBUTING.md file [\#38](https://github.com/voxpupuli/puppet-windows_power/pull/38) ([dhoppe](https://github.com/dhoppe))
+
 ## [v3.0.2](https://github.com/voxpupuli/puppet-windows_power/tree/v3.0.2) (2018-10-20)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-windows_power/compare/v3.0.1...v3.0.2)
