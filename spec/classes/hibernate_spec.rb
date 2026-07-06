@@ -9,7 +9,8 @@ describe 'windows_power::hibernate' do
         windows: {
           system32: 'C:\WINDOWS\system32'
         }
-      }
+      },
+      hibernation_enabled: false
     }
   end
 

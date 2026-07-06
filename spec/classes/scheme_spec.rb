@@ -36,7 +36,7 @@ describe 'windows_power::scheme' do
       it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_class('windows_power::scheme') }
 
-      it { is_expected.to contain_exec('activate_power_scheme').with_provider('windows') }
+      it { is_expected.to contain_exec('activate_existing_power_scheme').with_provider('windows') }
 
       it { is_expected.not_to contain_exec('duplicate_existing_power_scheme') }
       it { is_expected.not_to contain_exec('rename_power_scheme') }
