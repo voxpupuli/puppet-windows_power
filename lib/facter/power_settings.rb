@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/RegexpLiteral
-
 Facter.add(:power_settings) do
   confine kernel: 'windows'
 
@@ -13,14 +11,14 @@ Facter.add(:power_settings) do
     data_blocks = output.split(/\n\n/)
 
     result = {
-      'monitor-timeout-ac'    => 0,
-      'monitor-timeout-dc'    => 0,
-      'disk-timeout-ac'       => 0,
-      'disk-timeout-dc'       => 0,
-      'standby-timeout-ac'    => 0,
-      'standby-timeout-dc'    => 0,
-      'hibernate-timeout-ac'  => 0,
-      'hibernate-timeout-dc'  => 0,
+      'monitor-timeout-ac' => 0,
+      'monitor-timeout-dc' => 0,
+      'disk-timeout-ac' => 0,
+      'disk-timeout-dc' => 0,
+      'standby-timeout-ac' => 0,
+      'standby-timeout-dc' => 0,
+      'hibernate-timeout-ac' => 0,
+      'hibernate-timeout-dc' => 0,
     }
 
     hex = '[a-f0-9]'
@@ -31,7 +29,7 @@ Facter.add(:power_settings) do
       guid = ''
       lines = block.lines(chomp: true)
       lines.each do |line|
-        if line.match /(#{guid_re})/
+        if line.match(/(#{guid_re})/)
           # Get the last GUID in the block
           guid = $1
         end
@@ -69,5 +67,3 @@ Facter.add(:power_settings) do
     result
   end
 end
-
-# rubocop:enable Style/RegexpLiteral
