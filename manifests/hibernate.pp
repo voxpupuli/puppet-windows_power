@@ -31,10 +31,12 @@ class windows_power::hibernate (
   Optional[Enum['reduced', 'full']] $hiberfile_type = undef,
 ) {
   if $enable {
-    exec { 'enable_hibernate':
-      provider => windows,
-      path     => $facts['os']['windows']['system32'],
-      command  => 'powercfg /hibernate on',
+    unless $facts['hibernation_enabled'] {
+      exec { 'enable_hibernate':
+        provider => windows,
+        path     => $facts['os']['windows']['system32'],
+        command  => 'powercfg /hibernate on',
+      }
     }
 
     if $hiberfile_size !~ Undef {
@@ -54,10 +56,12 @@ class windows_power::hibernate (
     }
   }
   else {
-    exec { 'disable_hibernate':
-      provider => windows,
-      path     => $facts['os']['windows']['system32'],
-      command  => 'powercfg /hibernate off',
+    if $facts['hibernation_enabled'] {
+      exec { 'disable_hibernate':
+        provider => windows,
+        path     => $facts['os']['windows']['system32'],
+        command  => 'powercfg /hibernate off',
+      }
     }
   }
 }
