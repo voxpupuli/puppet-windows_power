@@ -3,18 +3,18 @@
 require 'spec_helper'
 
 describe 'windows_power::hibernate' do
-  let(:facts) do
-    {
-      os: {
-        windows: {
-          system32: 'C:\WINDOWS\system32'
-        }
-      },
-      hibernation_enabled: true
-    }
-  end
-
   context 'disable hibernation system wide' do
+    let(:facts) do
+      {
+        os: {
+          windows: {
+            system32: 'C:\WINDOWS\system32'
+          }
+        },
+        hibernation_enabled: true
+      }
+    end
+
     let(:params) do
       {
         enable: false
@@ -27,18 +27,18 @@ describe 'windows_power::hibernate' do
     it { is_expected.to contain_exec('disable_hibernate') }
   end
 
-  let(:facts) do
-    {
-      os: {
-        windows: {
-          system32: 'C:\WINDOWS\system32'
-        }
-      },
-      hibernation_enabled: false
-    }
-  end
-
   context 'enable hibernation with default settings' do
+    let(:facts) do
+      {
+        os: {
+          windows: {
+            system32: 'C:\WINDOWS\system32'
+          }
+        },
+        hibernation_enabled: false
+      }
+    end
+
     let(:params) do
       {
         enable: true
@@ -54,6 +54,17 @@ describe 'windows_power::hibernate' do
   end
 
   context 'enable and configure hibernation' do
+    let(:facts) do
+      {
+        os: {
+          windows: {
+            system32: 'C:\WINDOWS\system32'
+          }
+        },
+        hibernation_enabled: false
+      }
+    end
+
     let(:params) do
       {
         enable: true,
