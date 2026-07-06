@@ -10,7 +10,7 @@ describe 'windows_power::hibernate' do
           system32: 'C:\WINDOWS\system32'
         }
       },
-      hibernation_enabled: false
+      hibernation_enabled: true
     }
   end
 
@@ -25,6 +25,17 @@ describe 'windows_power::hibernate' do
     it { is_expected.to contain_class('windows_power::hibernate') }
 
     it { is_expected.to contain_exec('disable_hibernate') }
+  end
+
+  let(:facts) do
+    {
+      os: {
+        windows: {
+          system32: 'C:\WINDOWS\system32'
+        }
+      },
+      hibernation_enabled: false
+    }
   end
 
   context 'enable hibernation with default settings' do
