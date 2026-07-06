@@ -14,6 +14,14 @@ describe 'windows_power::hibernate' do
   end
 
   context 'disable hibernation system wide' do
+    let(:facts) do
+      super().merge(
+        {
+          hibernation_enabled: true
+        }
+      )
+    end
+
     let(:params) do
       {
         enable: false
@@ -27,6 +35,14 @@ describe 'windows_power::hibernate' do
   end
 
   context 'enable hibernation with default settings' do
+    let(:facts) do
+      super().merge(
+        {
+          hibernation_enabled: false
+        }
+      )
+    end
+
     let(:params) do
       {
         enable: true
@@ -42,6 +58,14 @@ describe 'windows_power::hibernate' do
   end
 
   context 'enable and configure hibernation' do
+    let(:facts) do
+      super().merge(
+        {
+          hibernation_enabled: false
+        }
+      )
+    end
+
     let(:params) do
       {
         enable: true,

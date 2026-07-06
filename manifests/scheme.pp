@@ -65,45 +65,50 @@ class windows_power::scheme (
   ], Integer[0], 1, 8]] $settings = undef,
 ) {
   if $template !~ Undef {
-    if !($guid in $facts['power_schemes']) and ($template in $facts['power_schemes']) {
-      exec { 'duplicate_existing_power_scheme':
-        provider => windows,
-        path     => $facts['os']['windows']['system32'],
-        command  => "powercfg /duplicatescheme ${template} ${guid}",
+    if !($guid in $facts['power_schemes']) {
+      if $template in $facts['power_schemes'] {
+        exec { 'duplicate_existing_power_scheme':
+          provider => windows,
+          path     => $facts['os']['windows']['system32'],
+          command  => "powercfg /duplicatescheme ${template} ${guid}",
+        }
+        exec { 'activate_duplicated_power_scheme':
+          provider => windows,
+          path     => $facts['os']['windows']['system32'],
+          command  => "powercfg /setactive ${guid}",
+        }
       }
     }
   }
 
   if ($guid in $facts['power_schemes']) and !($facts['power_schemes'][$guid]['active']) {
-    exec { 'activate_power_scheme':
+    exec { 'activate_existing_power_scheme':
       provider => windows,
       path     => $facts['os']['windows']['system32'],
       command  => "powercfg /setactive ${guid}",
     }
   }
-  elsif !($guid in $facts['power_schemes']) {
-    exec { 'activate_power_scheme':
-      provider => powershell,
-      command  => "& powercfg /setactive ${guid}",
-      onlyif   => "([System.Collections.ArrayList]@(powercfg /l | % { if (\$_ -match '^.*?([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}).*\$') {\$matches[1]} })).contains('${guid}')",
-    }
-  }
 
   if $label !~ Undef {
+    $rename_command = $description ? {
+      Undef   => "powercfg /changename ${guid} \"${label}\"",
+      default => "powercfg /changename ${guid} \"${label}\" \"${description}\"",
+    }
     if ($guid in $facts['power_schemes']) and ($facts['power_schemes'][$guid]['name'] != $label) {
-      if $description !~ Undef {
-        exec { 'rename_power_scheme':
-          provider => windows,
-          path     => $facts['os']['windows']['system32'],
-          command  => "powercfg /changename ${guid} \"${label}\" \"${description}\"",
-        }
+      exec { 'rename_power_scheme':
+        provider => windows,
+        path     => $facts['os']['windows']['system32'],
+        command  => $rename_command,
       }
-      else {
-        exec { 'rename_power_scheme':
-          provider => windows,
-          path     => $facts['os']['windows']['system32'],
-          command  => "powercfg /changename ${guid} \"${label}\"",
-        }
+    }
+    elsif !($guid in $facts['power_schemes']) {
+      # rename the newly duplicated and activated scheme in one puppet run
+      exec { 'rename_power_scheme':
+        provider    => windows,
+        path        => $facts['os']['windows']['system32'],
+        command     => $rename_command,
+        subscribe   => Exec['activate_duplicated_power_scheme'],
+        refreshonly => true,
       }
     }
   }
@@ -111,10 +116,13 @@ class windows_power::scheme (
   if ($guid in $facts['power_schemes']) and $facts['power_schemes'][$guid]['active'] {
     if $settings !~ Undef {
       each($settings) |$key, $value| {
-        exec { "set_power_scheme_setting_${key}":
-          provider => windows,
-          path     => $facts['os']['windows']['system32'],
-          command  => "powercfg /change ${key} ${value}",
+        # facts power_settings is the value in seconds
+        if $facts['power_settings'][$key] != $value * 60 {
+          exec { "set_power_scheme_setting_${key}":
+            provider => windows,
+            path     => $facts['os']['windows']['system32'],
+            command  => "powercfg /change ${key} ${value}",
+          }
         }
       }
     }
