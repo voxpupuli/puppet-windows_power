@@ -8,7 +8,7 @@ Facter.add(:power_settings) do
 
   setcode do
     output = Facter::Core::Execution.execute('powercfg /query')
-    data_blocks = output.split(/\n\n/)
+    data_blocks = output.split(%r{\n\n})
 
     result = {
       'monitor-timeout-ac' => 0,
@@ -29,9 +29,9 @@ Facter.add(:power_settings) do
       guid = ''
       lines = block.lines(chomp: true)
       lines.each do |line|
-        if line.match(/(#{guid_re})/)
+        if line.match(%r{(#{guid_re})})
           # Get the last GUID in the block
-          guid = $1
+          guid = Regexp.last_match(1)
         end
       end
       # Get the hex values of the last two lines in a block.
