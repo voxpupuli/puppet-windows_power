@@ -65,11 +65,20 @@ class windows_power::scheme (
   ], Integer[0], 1, 8]] $settings = undef,
 ) {
   if $template !~ Undef {
-    if !($guid in $facts['power_schemes']) and ($template in $facts['power_schemes']) {
-      exec { 'duplicate_existing_power_scheme':
-        provider => windows,
-        path     => $facts['os']['windows']['system32'],
-        command  => "powercfg /duplicatescheme ${template} ${guid}",
+    if !($guid in $facts['power_schemes']) {
+      if $template in $facts['power_schemes'] {
+        exec { 'duplicate_existing_power_scheme':
+          provider => windows,
+          path     => $facts['os']['windows']['system32'],
+          command  => "powercfg /duplicatescheme ${template} ${guid}",
+        }
+        exec { 'activate_duplicated_power_scheme':
+          provider => windows,
+          path     => $facts['os']['windows']['system32'],
+          command  => "powercfg /setactive ${guid}",
+        }
+      } else {
+        fail("The GUID of the template ${$template} does not exist!")
       }
     }
   }
@@ -79,16 +88,6 @@ class windows_power::scheme (
       provider => windows,
       path     => $facts['os']['windows']['system32'],
       command  => "powercfg /setactive ${guid}",
-    }
-  }
-  elsif !($guid in $facts['power_schemes']) {
-    # active the newly duplicated scheme
-    exec { 'activate_duplicated_power_scheme':
-      provider    => windows,
-      path        => $facts['os']['windows']['system32'],
-      command     => "powercfg /setactive ${guid}",
-      subscribe   => Exec['duplicate_existing_power_scheme'],
-      refreshonly => true,
     }
   }
 
