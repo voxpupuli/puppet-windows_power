@@ -71,31 +71,31 @@ describe 'windows_power::scheme' do
     end
   end
 
-  # context 'activate non-existing power scheme' do
-  #   let(:facts) do
-  #     super().merge(
-  #       {
-  #         power_schemes: {
-  #           '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {}
-  #         }
-  #       }
-  #     )
-  #   end
+  context 'activate non-existing power scheme' do
+    let(:facts) do
+      super().merge(
+        {
+          power_schemes: {
+            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {}
+          }
+        }
+      )
+    end
 
-  #   let(:params) do
-  #     {
-  #       guid: '3c5e7fda-e8bf-4a96-9a85-a6e23a8c635c'
-  #     }
-  #   end
+    let(:params) do
+      {
+        guid: '3c5e7fda-e8bf-4a96-9a85-a6e23a8c635c'
+      }
+    end
 
-  #   it { is_expected.to compile.with_all_deps }
-  #   it { is_expected.to contain_class('windows_power::scheme') }
+    it { is_expected.to compile.with_all_deps }
+    it { is_expected.to contain_class('windows_power::scheme') }
 
-  #   it { is_expected.to contain_exec('activate_power_scheme').with_provider('powershell') }
+    it { is_expected.not_to contain_exec('activate_existing_power_scheme') }
 
-  #   it { is_expected.not_to contain_exec('duplicate_existing_power_scheme') }
-  #   it { is_expected.not_to contain_exec('rename_power_scheme') }
-  # end
+    it { is_expected.not_to contain_exec('duplicate_existing_power_scheme') }
+    it { is_expected.not_to contain_exec('rename_power_scheme') }
+  end
 
   context 'rename existing power scheme' do
     context 'to new name' do
