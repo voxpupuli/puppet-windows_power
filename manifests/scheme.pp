@@ -77,8 +77,6 @@ class windows_power::scheme (
           path     => $facts['os']['windows']['system32'],
           command  => "powercfg /setactive ${guid}",
         }
-      } else {
-        fail("The GUID of the template ${$template} does not exist!")
       }
     }
   }
