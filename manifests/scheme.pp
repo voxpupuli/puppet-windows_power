@@ -65,18 +65,11 @@ class windows_power::scheme (
   ], Integer[0], 1, 8]] $settings = undef,
 ) {
   if $template !~ Undef {
-    if !($guid in $facts['power_schemes']) {
-      if $template in $facts['power_schemes'] {
-        exec { 'duplicate_existing_power_scheme':
-          provider => windows,
-          path     => $facts['os']['windows']['system32'],
-          command  => "powercfg /duplicatescheme ${template} ${guid}",
-        }
-        exec { 'activate_duplicated_power_scheme':
-          provider => windows,
-          path     => $facts['os']['windows']['system32'],
-          command  => "powercfg /setactive ${guid}",
-        }
+    if !($guid in $facts['power_schemes']) and ($template in $facts['power_schemes']) {
+      exec { 'duplicate_existing_power_scheme':
+        provider => windows,
+        path     => $facts['os']['windows']['system32'],
+        command  => "powercfg /duplicatescheme ${template} ${guid}",
       }
     }
   }
@@ -86,6 +79,15 @@ class windows_power::scheme (
       provider => windows,
       path     => $facts['os']['windows']['system32'],
       command  => "powercfg /setactive ${guid}",
+    }
+  }
+  elsif !($guid in $facts['power_schemes']) {
+    exec { 'activate_duplicated_power_scheme':
+      provider    => powershell,
+      command     => "& powercfg /setactive ${guid}",
+      onlyif      => "([System.Collections.ArrayList]@(powercfg /l | % { if (\$_ -match '^.*?([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}).*\$') {\$matches[1]} })).contains('${guid}')",
+      subscribe   => Exec['duplicate_existing_power_scheme'],
+      refreshonly => true,
     }
   }
 
