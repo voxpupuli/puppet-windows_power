@@ -36,9 +36,10 @@ describe 'windows_power::scheme' do
       it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_class('windows_power::scheme') }
 
-      it { is_expected.to contain_exec('activate_existing_power_scheme').with_provider('windows') }
+      it { is_expected.to contain_exec('activate_existing_power_scheme') }
 
       it { is_expected.not_to contain_exec('duplicate_existing_power_scheme') }
+      it { is_expected.not_to contain_exec('activate_duplicated_power_scheme') }
       it { is_expected.not_to contain_exec('rename_power_scheme') }
     end
 
@@ -67,6 +68,7 @@ describe 'windows_power::scheme' do
       it { is_expected.not_to contain_exec('activate_existing_power_scheme') }
 
       it { is_expected.not_to contain_exec('duplicate_existing_power_scheme') }
+      it { is_expected.not_to contain_exec('activate_duplicated_power_scheme') }
       it { is_expected.not_to contain_exec('rename_power_scheme') }
     end
   end
@@ -94,6 +96,7 @@ describe 'windows_power::scheme' do
     it { is_expected.not_to contain_exec('activate_existing_power_scheme') }
 
     it { is_expected.not_to contain_exec('duplicate_existing_power_scheme') }
+    it { is_expected.not_to contain_exec('activate_duplicated_power_scheme') }
     it { is_expected.not_to contain_exec('rename_power_scheme') }
   end
 
@@ -125,6 +128,7 @@ describe 'windows_power::scheme' do
       it { is_expected.to contain_exec('rename_power_scheme') }
 
       it { is_expected.not_to contain_exec('activate_existing_power_scheme') }
+      it { is_expected.not_to contain_exec('activate_duplicated_power_scheme') }
       it { is_expected.not_to contain_exec('duplicate_existing_power_scheme') }
     end
 
@@ -155,6 +159,7 @@ describe 'windows_power::scheme' do
       it { is_expected.not_to contain_exec('rename_power_scheme') }
 
       it { is_expected.not_to contain_exec('activate_existing_power_scheme') }
+      it { is_expected.not_to contain_exec('activate_duplicated_power_scheme') }
       it { is_expected.not_to contain_exec('duplicate_existing_power_scheme') }
     end
   end
@@ -183,11 +188,12 @@ describe 'windows_power::scheme' do
 
       it { is_expected.to contain_exec('duplicate_existing_power_scheme') }
 
-      it { is_expected.to contain_exec('activate_duplicated_power_scheme').with_provider('windows') }
+      it { is_expected.not_to contain_exec('activate_existing_power_scheme') }
+      it { is_expected.to contain_exec('activate_duplicated_power_scheme') }
       it { is_expected.not_to contain_exec('rename_power_scheme') }
     end
 
-    context 'as existing scheme do nothing' do
+    context 'as existing scheme' do
       let(:facts) do
         super().merge(
           {
@@ -214,6 +220,7 @@ describe 'windows_power::scheme' do
       it { is_expected.not_to contain_exec('duplicate_existing_power_scheme') }
 
       it { is_expected.not_to contain_exec('activate_existing_power_scheme') }
+      it { is_expected.not_to contain_exec('activate_duplicated_power_scheme') }
       it { is_expected.not_to contain_exec('rename_power_scheme') }
     end
   end
@@ -241,6 +248,8 @@ describe 'windows_power::scheme' do
 
     it { is_expected.not_to contain_exec('duplicate_existing_power_scheme') }
 
+    it { is_expected.not_to contain_exec('activate_existing_power_scheme') }
+    it { is_expected.not_to contain_exec('activate_duplicated_power_scheme') }
     it { is_expected.not_to contain_exec('rename_power_scheme') }
   end
 
@@ -256,7 +265,9 @@ describe 'windows_power::scheme' do
             },
             power_settings: {
               'monitor-timeout-ac': 0,
-              'monitor-timeout-dc': 0
+              'monitor-timeout-dc': 0,
+              'disk-timeout-ac': 0,
+              'disk-timeout-dc': 0
             }
           }
         )
@@ -267,7 +278,9 @@ describe 'windows_power::scheme' do
           guid: '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c',
           settings: {
             'monitor-timeout-ac': 30,
-            'monitor-timeout-dc': 10
+            'monitor-timeout-dc': 10,
+            'disk-timeout-ac': 0,
+            'disk-timeout-dc': 0
           }
         }
       end
@@ -277,8 +290,11 @@ describe 'windows_power::scheme' do
 
       it { is_expected.to contain_exec('set_power_scheme_setting_monitor-timeout-ac') }
       it { is_expected.to contain_exec('set_power_scheme_setting_monitor-timeout-dc') }
+      it { is_expected.not_to contain_exec('set_power_scheme_setting_disk-timeout-ac') }
+      it { is_expected.not_to contain_exec('set_power_scheme_setting_disk-timeout-dc') }
 
       it { is_expected.not_to contain_exec('activate_existing_power_scheme') }
+      it { is_expected.not_to contain_exec('activate_duplicated_power_scheme') }
       it { is_expected.not_to contain_exec('duplicate_existing_power_scheme') }
       it { is_expected.not_to contain_exec('rename_power_scheme') }
     end
@@ -312,7 +328,8 @@ describe 'windows_power::scheme' do
       it { is_expected.not_to contain_exec('set_power_scheme_setting_monitor-timeout-ac') }
       it { is_expected.not_to contain_exec('set_power_scheme_setting_monitor-timeout-dc') }
 
-      it { is_expected.to contain_exec('activate_existing_power_scheme').with_provider('windows') }
+      it { is_expected.to contain_exec('activate_existing_power_scheme') }
+      it { is_expected.not_to contain_exec('activate_duplicated_power_scheme') }
       it { is_expected.not_to contain_exec('duplicate_existing_power_scheme') }
       it { is_expected.not_to contain_exec('rename_power_scheme') }
     end
@@ -345,7 +362,8 @@ describe 'windows_power::scheme' do
     it { is_expected.not_to contain_exec('set_power_scheme_setting_monitor-timeout-ac') }
     it { is_expected.not_to contain_exec('set_power_scheme_setting_monitor-timeout-dc') }
 
-    it { is_expected.not_to contain_exec('activate_existing_power_scheme').with_provider('windows') }
+    it { is_expected.not_to contain_exec('activate_existing_power_scheme') }
+    it { is_expected.not_to contain_exec('activate_duplicated_power_scheme') }
     it { is_expected.not_to contain_exec('duplicate_existing_power_scheme') }
     it { is_expected.not_to contain_exec('rename_power_scheme') }
   end
