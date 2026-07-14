@@ -10,8 +10,10 @@ Summary:
 - use class `windows_power` to manage Windows power devices (physical, logical and virtual); this wraps the defined type `windows_power::device`
 - use class `windows_power::hibernate` to manage Windows hibernate settings
 - use class `windows_power::scheme` to manage Windows power scheme
+- shipped fact `hibernation_enabled` contains the system's current hibernation state
 - shipped fact `power_devices` contains all kind of system's power devices, their various wakeup capabilities and their power request overrides
 - shipped fact `power_schemes` contains the system's power schemes and their activation state
+- shipped fact `power_settings` contains the currently active power scheme's settings
 
 See [REFERENCE.md](REFERENCE.md) for further details and practical examples.
 
@@ -23,7 +25,7 @@ It also drops support for legacy Windows systems and removes functionality targe
 
 ## Limitations
 
-Due to the nature of Windows' way to configure things, we can't just write a config file with desired settings and tell Windows to apply that (or something similar). As well we're not able to determine the current state of some settings (e.g. the timeouts in a power scheme) at all.
+Due to the nature of Windows' way to configure things, we can't just write a config file with desired settings and tell Windows to apply that (or something similar). As well we're not able to determine the current state of some settings (e.g. hiberfile size and type) at all.
 
 Therefore, some commands are applied with every Puppet run to ensure the desired state. Additionally, it might need more than one Puppet run to achieve the final state.
 
