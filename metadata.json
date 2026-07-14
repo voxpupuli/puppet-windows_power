@@ -17,24 +17,16 @@
         "2012 R2",
         "2016",
         "2019",
-        "2022"
+        "2022",
+        "2025"
       ]
     }
   ],
-  "dependencies": [
-    {
-      "name": "puppetlabs/powershell",
-      "version_requirement": ">= 1.0.5 < 7.0.0"
-    },
-    {
-      "name": "puppetlabs/pwshlib",
-      "version_requirement": ">= 0.4.0 < 2.0.0"
-    }
-  ],
+  "dependencies": [],
   "requirements": [
     {
-      "name": "puppet",
-      "version_requirement": ">= 7.0.0 < 9.0.0"
+      "name": "openvox",
+      "version_requirement": ">= 8.19.0 < 9.0.0"
     }
   ]
 }
