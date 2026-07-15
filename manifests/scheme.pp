@@ -54,16 +54,18 @@ class windows_power::scheme (
   Optional[Pattern[/\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\z/]] $template = undef,
   Optional[String[1]] $description = undef,
   Optional[Hash[Enum[
-        'monitor-timeout-ac',
-        'monitor-timeout-dc',
-        'disk-timeout-ac',
-        'disk-timeout-dc',
-        'standby-timeout-ac',
-        'standby-timeout-dc',
-        'hibernate-timeout-ac',
-        'hibernate-timeout-dc'
+    'monitor-timeout-ac',
+    'monitor-timeout-dc',
+    'disk-timeout-ac',
+    'disk-timeout-dc',
+    'standby-timeout-ac',
+    'standby-timeout-dc',
+    'hibernate-timeout-ac',
+    'hibernate-timeout-dc'
   ], Integer[0], 1, 8]] $settings = undef,
 ) {
+# exec idempotency is achieved by facts and conditions, not by parameters
+# lint:ignore:exec_idempotency
   if $template !~ Undef {
     if !($guid in $facts['power_schemes']) and ($template in $facts['power_schemes']) {
       exec { 'duplicate_existing_power_scheme':
@@ -126,4 +128,5 @@ class windows_power::scheme (
       }
     }
   }
+# lint:endignore
 }

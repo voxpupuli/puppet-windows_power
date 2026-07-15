@@ -7,9 +7,9 @@ describe 'windows_power::hibernate' do
     {
       os: {
         windows: {
-          system32: 'C:\WINDOWS\system32'
-        }
-      }
+          system32: 'C:\WINDOWS\system32',
+        },
+      },
     }
   end
 
@@ -18,14 +18,14 @@ describe 'windows_power::hibernate' do
       let(:facts) do
         super().merge(
           {
-            hibernation_enabled: true
-          }
+            hibernation_enabled: true,
+          },
         )
       end
 
       let(:params) do
         {
-          enable: false
+          enable: false,
         }
       end
 
@@ -39,14 +39,14 @@ describe 'windows_power::hibernate' do
       let(:facts) do
         super().merge(
           {
-            hibernation_enabled: false
-          }
+            hibernation_enabled: false,
+          },
         )
       end
 
       let(:params) do
         {
-          enable: false
+          enable: false,
         }
       end
 
@@ -62,14 +62,14 @@ describe 'windows_power::hibernate' do
       let(:facts) do
         super().merge(
           {
-            hibernation_enabled: true
-          }
+            hibernation_enabled: true,
+          },
         )
       end
 
       let(:params) do
         {
-          enable: true
+          enable: true,
         }
       end
 
@@ -85,14 +85,14 @@ describe 'windows_power::hibernate' do
       let(:facts) do
         super().merge(
           {
-            hibernation_enabled: false
-          }
+            hibernation_enabled: false,
+          },
         )
       end
 
       let(:params) do
         {
-          enable: true
+          enable: true,
         }
       end
 
@@ -110,8 +110,8 @@ describe 'windows_power::hibernate' do
       let(:facts) do
         super().merge(
           {
-            hibernation_enabled: false
-          }
+            hibernation_enabled: false,
+          },
         )
       end
 
@@ -119,7 +119,7 @@ describe 'windows_power::hibernate' do
         {
           enable: true,
           hiberfile_size: 100,
-          hiberfile_type: 'full'
+          hiberfile_type: 'full',
         }
       end
 
@@ -135,8 +135,8 @@ describe 'windows_power::hibernate' do
       let(:facts) do
         super().merge(
           {
-            hibernation_enabled: true
-          }
+            hibernation_enabled: true,
+          },
         )
       end
 
@@ -144,7 +144,7 @@ describe 'windows_power::hibernate' do
         {
           enable: true,
           hiberfile_size: 100,
-          hiberfile_type: 'full'
+          hiberfile_type: 'full',
         }
       end
 

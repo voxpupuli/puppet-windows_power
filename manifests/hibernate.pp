@@ -30,6 +30,8 @@ class windows_power::hibernate (
   Optional[Integer[40, 100]] $hiberfile_size = undef,
   Optional[Enum['reduced', 'full']] $hiberfile_type = undef,
 ) {
+# exec idempotency is achieved by facts and conditions, not by parameters
+# lint:ignore:exec_idempotency
   if $enable {
     unless $facts['hibernation_enabled'] {
       exec { 'enable_hibernate':
@@ -64,4 +66,5 @@ class windows_power::hibernate (
       }
     }
   }
+# lint:endignore
 }

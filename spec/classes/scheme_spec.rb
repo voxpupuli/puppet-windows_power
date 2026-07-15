@@ -7,9 +7,9 @@ describe 'windows_power::scheme' do
     {
       os: {
         windows: {
-          system32: 'C:\WINDOWS\system32'
-        }
-      }
+          system32: 'C:\WINDOWS\system32',
+        },
+      },
     }
   end
 
@@ -20,16 +20,16 @@ describe 'windows_power::scheme' do
           {
             power_schemes: {
               '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
-                active: false
-              }
-            }
-          }
+                active: false,
+              },
+            },
+          },
         )
       end
 
       let(:params) do
         {
-          guid: '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c'
+          guid: '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c',
         }
       end
 
@@ -49,16 +49,16 @@ describe 'windows_power::scheme' do
           {
             power_schemes: {
               '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
-                active: true
-              }
-            }
-          }
+                active: true,
+              },
+            },
+          },
         )
       end
 
       let(:params) do
         {
-          guid: '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c'
+          guid: '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c',
         }
       end
 
@@ -78,15 +78,15 @@ describe 'windows_power::scheme' do
       super().merge(
         {
           power_schemes: {
-            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {}
-          }
-        }
+            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {},
+          },
+        },
       )
     end
 
     let(:params) do
       {
-        guid: '3c5e7fda-e8bf-4a96-9a85-a6e23a8c635c'
+        guid: '3c5e7fda-e8bf-4a96-9a85-a6e23a8c635c',
       }
     end
 
@@ -108,17 +108,17 @@ describe 'windows_power::scheme' do
             power_schemes: {
               '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
                 active: true,
-                name: 'High performance'
-              }
-            }
-          }
+                name: 'High performance',
+              },
+            },
+          },
         )
       end
 
       let(:params) do
         {
           guid: '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c',
-          label: 'super power'
+          label: 'super power',
         }
       end
 
@@ -139,17 +139,17 @@ describe 'windows_power::scheme' do
             power_schemes: {
               '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
                 active: true,
-                name: 'super power'
-              }
-            }
-          }
+                name: 'super power',
+              },
+            },
+          },
         )
       end
 
       let(:params) do
         {
           guid: '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c',
-          label: 'super power'
+          label: 'super power',
         }
       end
 
@@ -170,16 +170,16 @@ describe 'windows_power::scheme' do
         super().merge(
           {
             power_schemes: {
-              '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {}
-            }
-          }
+              '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {},
+            },
+          },
         )
       end
 
       let(:params) do
         {
           guid: '3c5e7fda-e8bf-4a96-9a85-a6e23a8c635c',
-          template: '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c'
+          template: '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c',
         }
       end
 
@@ -200,17 +200,17 @@ describe 'windows_power::scheme' do
             power_schemes: {
               '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {},
               '3c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
-                active: true
-              }
-            }
-          }
+                active: true,
+              },
+            },
+          },
         )
       end
 
       let(:params) do
         {
           guid: '3c5e7fda-e8bf-4a96-9a85-a6e23a8c635c',
-          template: '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c'
+          template: '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c',
         }
       end
 
@@ -230,16 +230,16 @@ describe 'windows_power::scheme' do
       super().merge(
         {
           power_schemes: {
-            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {}
-          }
-        }
+            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {},
+          },
+        },
       )
     end
 
     let(:params) do
       {
         guid: '3c5e7fda-e8bf-4a96-9a85-a6e23a8c635c',
-        template: '7c5e7fda-e8bf-4a96-9a85-a6e23a8c635c'
+        template: '7c5e7fda-e8bf-4a96-9a85-a6e23a8c635c',
       }
     end
 
@@ -260,16 +260,16 @@ describe 'windows_power::scheme' do
           {
             power_schemes: {
               '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
-                active: true
-              }
+                active: true,
+              },
             },
             power_settings: {
               'monitor-timeout-ac': 0,
               'monitor-timeout-dc': 0,
               'disk-timeout-ac': 0,
-              'disk-timeout-dc': 0
-            }
-          }
+              'disk-timeout-dc': 0,
+            },
+          },
         )
       end
 
@@ -280,8 +280,8 @@ describe 'windows_power::scheme' do
             'monitor-timeout-ac': 30,
             'monitor-timeout-dc': 10,
             'disk-timeout-ac': 0,
-            'disk-timeout-dc': 0
-          }
+            'disk-timeout-dc': 0,
+          },
         }
       end
 
@@ -305,10 +305,10 @@ describe 'windows_power::scheme' do
           {
             power_schemes: {
               '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {
-                active: false
-              }
+                active: false,
+              },
             },
-          }
+          },
         )
       end
 
@@ -317,8 +317,8 @@ describe 'windows_power::scheme' do
           guid: '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c',
           settings: {
             'monitor-timeout-ac': 30,
-            'monitor-timeout-dc': 10
-          }
+            'monitor-timeout-dc': 10,
+          },
         }
       end
 
@@ -340,9 +340,9 @@ describe 'windows_power::scheme' do
       super().merge(
         {
           power_schemes: {
-            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {}
-          }
-        }
+            '8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c': {},
+          },
+        },
       )
     end
 
@@ -351,8 +351,8 @@ describe 'windows_power::scheme' do
         guid: '3c5e7fda-e8bf-4a96-9a85-a6e23a8c635c',
         settings: {
           'monitor-timeout-ac': 30,
-          'monitor-timeout-dc': 10
-        }
+          'monitor-timeout-dc': 10,
+        },
       }
     end
 
