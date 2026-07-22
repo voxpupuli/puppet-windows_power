@@ -14,7 +14,7 @@ Facter.add(:power_schemes) do
       line.match(/^.*?([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}).*\((.*)\).*$/) do |match|
         power_schemes[match[1].to_sym] = {
           name: match[2],
-          active: line.end_with?('*')
+          active: line.end_with?('*'),
         }
       end
     end

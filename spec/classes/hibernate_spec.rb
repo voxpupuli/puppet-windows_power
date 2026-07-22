@@ -7,54 +7,153 @@ describe 'windows_power::hibernate' do
     {
       os: {
         windows: {
-          system32: 'C:\WINDOWS\system32'
-        }
-      }
+          system32: 'C:\WINDOWS\system32',
+        },
+      },
     }
   end
 
   context 'disable hibernation system wide' do
-    let(:params) do
-      {
-        enable: false
-      }
+    context 'if enabled' do
+      let(:facts) do
+        super().merge(
+          {
+            hibernation_enabled: true,
+          },
+        )
+      end
+
+      let(:params) do
+        {
+          enable: false,
+        }
+      end
+
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.to contain_class('windows_power::hibernate') }
+
+      it { is_expected.to contain_exec('disable_hibernate') }
     end
 
-    it { is_expected.to compile.with_all_deps }
-    it { is_expected.to contain_class('windows_power::hibernate') }
+    context 'if disabled' do
+      let(:facts) do
+        super().merge(
+          {
+            hibernation_enabled: false,
+          },
+        )
+      end
 
-    it { is_expected.to contain_exec('disable_hibernate') }
+      let(:params) do
+        {
+          enable: false,
+        }
+      end
+
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.to contain_class('windows_power::hibernate') }
+
+      it { is_expected.not_to contain_exec('disable_hibernate') }
+    end
   end
 
   context 'enable hibernation with default settings' do
-    let(:params) do
-      {
-        enable: true
-      }
+    context 'if enabled' do
+      let(:facts) do
+        super().merge(
+          {
+            hibernation_enabled: true,
+          },
+        )
+      end
+
+      let(:params) do
+        {
+          enable: true,
+        }
+      end
+
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.to contain_class('windows_power::hibernate') }
+
+      it { is_expected.not_to contain_exec('enable_hibernate') }
+      it { is_expected.not_to contain_exec('set_hiberfile_size') }
+      it { is_expected.not_to contain_exec('set_hiberfile_type') }
     end
 
-    it { is_expected.to compile.with_all_deps }
-    it { is_expected.to contain_class('windows_power::hibernate') }
+    context 'if disabled' do
+      let(:facts) do
+        super().merge(
+          {
+            hibernation_enabled: false,
+          },
+        )
+      end
 
-    it { is_expected.to contain_exec('enable_hibernate') }
-    it { is_expected.not_to contain_exec('set_hiberfile_size') }
-    it { is_expected.not_to contain_exec('set_hiberfile_type') }
+      let(:params) do
+        {
+          enable: true,
+        }
+      end
+
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.to contain_class('windows_power::hibernate') }
+
+      it { is_expected.to contain_exec('enable_hibernate') }
+      it { is_expected.not_to contain_exec('set_hiberfile_size') }
+      it { is_expected.not_to contain_exec('set_hiberfile_type') }
+    end
   end
 
   context 'enable and configure hibernation' do
-    let(:params) do
-      {
-        enable: true,
-        hiberfile_size: 100,
-        hiberfile_type: 'full'
-      }
+    context 'if disabled' do
+      let(:facts) do
+        super().merge(
+          {
+            hibernation_enabled: false,
+          },
+        )
+      end
+
+      let(:params) do
+        {
+          enable: true,
+          hiberfile_size: 100,
+          hiberfile_type: 'full',
+        }
+      end
+
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.to contain_class('windows_power::hibernate') }
+
+      it { is_expected.to contain_exec('enable_hibernate') }
+      it { is_expected.to contain_exec('set_hiberfile_size').with_command('powercfg /hibernate /size 100') }
+      it { is_expected.to contain_exec('set_hiberfile_type').with_command('powercfg /hibernate /type full') }
     end
 
-    it { is_expected.to compile.with_all_deps }
-    it { is_expected.to contain_class('windows_power::hibernate') }
+    context 'if enabled' do
+      let(:facts) do
+        super().merge(
+          {
+            hibernation_enabled: true,
+          },
+        )
+      end
 
-    it { is_expected.to contain_exec('enable_hibernate') }
-    it { is_expected.to contain_exec('set_hiberfile_size').with_command('powercfg /hibernate /size 100') }
-    it { is_expected.to contain_exec('set_hiberfile_type').with_command('powercfg /hibernate /type full') }
+      let(:params) do
+        {
+          enable: true,
+          hiberfile_size: 100,
+          hiberfile_type: 'full',
+        }
+      end
+
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.to contain_class('windows_power::hibernate') }
+
+      it { is_expected.not_to contain_exec('enable_hibernate') }
+      it { is_expected.to contain_exec('set_hiberfile_size').with_command('powercfg /hibernate /size 100') }
+      it { is_expected.to contain_exec('set_hiberfile_type').with_command('powercfg /hibernate /type full') }
+    end
   end
 end

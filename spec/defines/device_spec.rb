@@ -7,9 +7,9 @@ describe 'windows_power::device' do
     {
       os: {
         windows: {
-          system32: 'C:\WINDOWS\system32'
-        }
-      }
+          system32: 'C:\WINDOWS\system32',
+        },
+      },
     }
   end
 
@@ -18,7 +18,7 @@ describe 'windows_power::device' do
 
     let(:params) do
       {
-        enable_wake: true
+        enable_wake: true,
       }
     end
 
@@ -29,10 +29,10 @@ describe 'windows_power::device' do
             power_devices: {
               'HID-compliant mouse (001)': {
                 wake_programmable: true,
-                wake_armed: false
-              }
-            }
-          }
+                wake_armed: false,
+              },
+            },
+          },
         )
       end
 
@@ -50,10 +50,10 @@ describe 'windows_power::device' do
             power_devices: {
               'HID-compliant mouse (001)': {
                 wake_programmable: true,
-                wake_armed: true
-              }
-            }
-          }
+                wake_armed: true,
+              },
+            },
+          },
         )
       end
 
@@ -68,8 +68,8 @@ describe 'windows_power::device' do
       let(:facts) do
         super().merge(
           {
-            power_devices: {}
-          }
+            power_devices: {},
+          },
         )
       end
 
@@ -86,10 +86,10 @@ describe 'windows_power::device' do
           {
             power_devices: {
               'HID-compliant mouse (001)': {
-                wake_programmable: false
-              }
-            }
-          }
+                wake_programmable: false,
+              },
+            },
+          },
         )
       end
 
@@ -106,7 +106,7 @@ describe 'windows_power::device' do
 
     let(:params) do
       {
-        enable_wake: false
+        enable_wake: false,
       }
     end
 
@@ -117,10 +117,10 @@ describe 'windows_power::device' do
             power_devices: {
               'HID-compliant mouse (001)': {
                 wake_programmable: true,
-                wake_armed: true
-              }
-            }
-          }
+                wake_armed: true,
+              },
+            },
+          },
         )
       end
 
@@ -138,10 +138,10 @@ describe 'windows_power::device' do
             power_devices: {
               'HID-compliant mouse (001)': {
                 wake_programmable: true,
-                wake_armed: false
-              }
-            }
-          }
+                wake_armed: false,
+              },
+            },
+          },
         )
       end
 
@@ -157,8 +157,8 @@ describe 'windows_power::device' do
     let(:facts) do
       super().merge(
         {
-          power_devices: {}
-        }
+          power_devices: {},
+        },
       )
     end
 
@@ -170,9 +170,9 @@ describe 'windows_power::device' do
           power_request_overrides: {
             process: {
               display: true,
-              awaymode: true
-            }
-          }
+              awaymode: true,
+            },
+          },
         }
       end
 
@@ -192,9 +192,9 @@ describe 'windows_power::device' do
           power_request_overrides: {
             driver: {
               display: true,
-              system: true
-            }
-          }
+              system: true,
+            },
+          },
         }
       end
 
@@ -219,12 +219,12 @@ describe 'windows_power::device' do
                 power_request_overrides: {
                   driver: {
                     display: true,
-                    system: true
-                  }
-                }
-              }
-            }
-          }
+                    system: true,
+                  },
+                },
+              },
+            },
+          },
         )
       end
 
@@ -233,9 +233,9 @@ describe 'windows_power::device' do
           power_request_overrides: {
             driver: {
               display: true,
-              system: true
-            }
-          }
+              system: true,
+            },
+          },
         }
       end
 
@@ -262,12 +262,12 @@ describe 'windows_power::device' do
                   power_request_overrides: {
                     driver: {
                       system: true,
-                      awaymode: true
-                    }
-                  }
-                }
-              }
-            }
+                      awaymode: true,
+                    },
+                  },
+                },
+              },
+            },
           )
         end
 
@@ -276,9 +276,9 @@ describe 'windows_power::device' do
             power_request_overrides: {
               driver: {
                 display: true,
-                system: true
-              }
-            }
+                system: true,
+              },
+            },
           }
         end
 
@@ -303,12 +303,12 @@ describe 'windows_power::device' do
                 'VPN Service': {
                   power_request_overrides: {
                     service: {
-                      system: true
-                    }
-                  }
-                }
-              }
-            }
+                      system: true,
+                    },
+                  },
+                },
+              },
+            },
           )
         end
 
@@ -316,9 +316,9 @@ describe 'windows_power::device' do
           {
             power_request_overrides: {
               service: {
-                system: false
-              }
-            }
+                system: false,
+              },
+            },
           }
         end
 

@@ -223,14 +223,14 @@ Data type:
 
 ```puppet
 Optional[Hash[Enum[
-        'monitor-timeout-ac',
-        'monitor-timeout-dc',
-        'disk-timeout-ac',
-        'disk-timeout-dc',
-        'standby-timeout-ac',
-        'standby-timeout-dc',
-        'hibernate-timeout-ac',
-        'hibernate-timeout-dc'
+    'monitor-timeout-ac',
+    'monitor-timeout-dc',
+    'disk-timeout-ac',
+    'disk-timeout-dc',
+    'standby-timeout-ac',
+    'standby-timeout-dc',
+    'hibernate-timeout-ac',
+    'hibernate-timeout-dc'
   ], Integer[0], 1, 8]]
 ```
 

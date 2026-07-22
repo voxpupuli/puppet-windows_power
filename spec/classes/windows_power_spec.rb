@@ -7,9 +7,9 @@ describe 'windows_power' do
     {
       os: {
         windows: {
-          system32: 'C:\WINDOWS\system32'
-        }
-      }
+          system32: 'C:\WINDOWS\system32',
+        },
+      },
     }
   end
 
@@ -23,26 +23,26 @@ describe 'windows_power' do
       {
         devices: {
           'HID-compliant mouse (001)': {
-            enable_wake: true
+            enable_wake: true,
           },
           'wmplayer.exe': {
             power_request_overrides: {
               process: {
                 display: true,
-                awaymode: true
-              }
-            }
+                awaymode: true,
+              },
+            },
           },
           'Realtek PCIe GbE Family Controller': {
             enable_wake: false,
             power_request_overrides: {
               driver: {
                 display: true,
-                system: true
-              }
-            }
-          }
-        }
+                system: true,
+              },
+            },
+          },
+        },
       }
     end
 

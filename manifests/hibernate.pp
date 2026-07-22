@@ -30,11 +30,15 @@ class windows_power::hibernate (
   Optional[Integer[40, 100]] $hiberfile_size = undef,
   Optional[Enum['reduced', 'full']] $hiberfile_type = undef,
 ) {
+# exec idempotency is achieved by facts and conditions, not by parameters
+# lint:ignore:exec_idempotency
   if $enable {
-    exec { 'enable_hibernate':
-      provider => windows,
-      path     => $facts['os']['windows']['system32'],
-      command  => 'powercfg /hibernate on',
+    unless $facts['hibernation_enabled'] {
+      exec { 'enable_hibernate':
+        provider => windows,
+        path     => $facts['os']['windows']['system32'],
+        command  => 'powercfg /hibernate on',
+      }
     }
 
     if $hiberfile_size !~ Undef {
@@ -54,10 +58,13 @@ class windows_power::hibernate (
     }
   }
   else {
-    exec { 'disable_hibernate':
-      provider => windows,
-      path     => $facts['os']['windows']['system32'],
-      command  => 'powercfg /hibernate off',
+    if $facts['hibernation_enabled'] {
+      exec { 'disable_hibernate':
+        provider => windows,
+        path     => $facts['os']['windows']['system32'],
+        command  => 'powercfg /hibernate off',
+      }
     }
   }
+# lint:endignore
 }
